@@ -505,3 +505,36 @@ function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown co
 function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'---------------------------------------
 function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'---------------------------------------
 function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Cannot set headers after they are sent to the client---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 2 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 "name" length must be at least 4 characters long---------------------------------------
+function toLocaleTimeString() { [native code] } 	 "adress" length must be at least 5 characters long---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No expenses found for customerId 8 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No expenses found for customerId 8 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No expenses found for customerId 7 not exist---------------------------------------

@@ -17,8 +17,8 @@ class CustomerModel {
 
     private static validationSchema = Joi.object({
         customerId: Joi.number().optional().allow(null),
-        name: Joi.string().required().min(4).max(100),
-        adress: Joi.string().required().min(5).max(30),
+        name: Joi.string().required().min(2).max(100),
+        adress: Joi.string().required().min(3).max(30),
         phoneNumber: Joi.string().required().min(5)
 
     });

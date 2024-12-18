@@ -3,6 +3,7 @@ import CustomerModel from "../4-models/CutomersModel";
 import { ResourceNotFoundErrorModel, ValidationErrorModel } from "../4-models/ErrorModel";
 import { OkPacket } from "mysql";
 import PaymentModel from "../4-models/PaymentModel";
+import ExpenseModel from "../4-models/ExpenseModel";
 
 
 async function getAllCustomers(userId: number): Promise<CustomerModel[]> {
@@ -26,37 +27,11 @@ async function getOneCustomer(customerId: number): Promise<CustomerModel> {
     return customer
 }
 
-// async function addCustomer(customer: CustomerModel, userId: number): Promise<CustomerModel> {
-//     const error = customer.validate();
-//     if (error) throw new ValidationErrorModel(error);
-//     console.log("customer from back")
-//     console.log(customer)
-//     const sql = `
-//         INSERT INTO customer (name, adress, phoneNumber, userId) 
-//         VALUES (?, ?, ?, ?)
-//     `;
 
-//     console.log("customer before insert id:", customer);
-
-//     const info: OkPacket = await dal.execute(sql, [
-//         customer.name,
-//         customer.adress,
-//         customer.phoneNumber,
-//         userId
-//     ]);
-
-//     console.log("Insert info:", info);
-//     customer.customerId = info.insertId;
-//     console.log("Inserted vacation with ID:", customer.customerId);
-
-//     return customer;
-// }
 
 async function addCustomer(customer: any, userId: number): Promise<CustomerModel> {
-    // הפוך את האובייקט למופע של CustomerModel
     const customerInstance = new CustomerModel(customer);
 
-    // בדיקת ולידציה
     const error = customerInstance.validate();
     if (error) throw new ValidationErrorModel(error);
 
@@ -78,45 +53,16 @@ async function addCustomer(customer: any, userId: number): Promise<CustomerModel
 
     console.log("Insert info:", info);
 
-    // עדכון ה-ID של הלקוח
     customerInstance.customerId = info.insertId;
     console.log("Inserted customer with ID:", customerInstance.customerId);
 
     return customerInstance;
 }
 
-// async function updateCustomer(customerId: number, customer: CustomerModel): Promise<CustomerModel> {
-//     const error = customer.validate();
-//     if (error) {
-//         throw new ValidationErrorModel(error);
-//     }
-// console.log("i am here update before imageName");
 
-//         const sql = `
-//             UPDATE customer SET 
-//                 name = ?, 
-//                 adress = ?, 
-//                 phoneNumber = ?
-//             WHERE customerId = ?
-//         `;
-
-//         const INFO: OkPacket = await dal.execute(sql, [
-//             customer.name, 
-//             customer.adress, 
-//             customer.phoneNumber, 
-//             customerId
-//         ]);
-
-//         if (INFO.affectedRows === 0) {
-//             throw new ResourceNotFoundErrorModel(`${customerId}`);
-//         } return customer;
-//     }
 
 async function updateCustomer(customerId: number, customer: any): Promise<CustomerModel> {
-    // יצירת מופע של CustomerModel
     const customerInstance = new CustomerModel(customer);
-
-    // בדיקת ולידציה
     const error = customerInstance.validate();
     if (error) {
         throw new ValidationErrorModel(error);
@@ -174,6 +120,44 @@ async function updateCustomer(customerId: number, customer: any): Promise<Custom
     
         return payments;
     }
+
+    async function getEpensesByCustomerId(customerId: number): Promise<PaymentModel[]> {
+        const sql = `
+        SELECT chomarimId, customerId, expenseTypeId, chomarimCategory, amount
+        FROM chomarim
+        WHERE customerId = ?`;
+        
+        const expenses = await dal.execute(sql, [customerId]);
+    
+        if (!expenses || expenses.length === 0) {
+            throw new ResourceNotFoundErrorModel(`No expenses found for customerId ${customerId}`);
+        }
+    
+        return expenses;
+    }
+    // הוספת הכנסה חדשה
+async function addPayment(payment: PaymentModel): Promise<PaymentModel> {
+    const sql = `
+        INSERT INTO payments (customerId,userId, amount, paymentDate, isPaid)
+        VALUES (?, ?,?, ?, ?)`;
+
+    const result = await dal.execute(sql, [payment.customerId,payment.userId, payment.amount, payment.paymentDate, payment.isPaid]);
+    payment.paymentId = result.insertId; // מזהה ההכנסה החדשה
+    return payment;
+}
+
+// הוספת הוצאה חדשה
+async function addExpense(expense: ExpenseModel): Promise<ExpenseModel> {
+    const sql = `
+        INSERT INTO chomarim (customerId, expenseTypeId, chomarimCategory, amount)
+        VALUES (?, ?, ?, ?)`;
+
+    const result = await dal.execute(sql, [expense.customerId, expense.expenseTypeId, expense.chomarimCategory, expense.amount]);
+    expense.chomarimId = result.insertId; // מזהה ההוצאה החדשה
+    return expense;
+}
+
+
     
     export default {
         getAllCustomers,
@@ -181,7 +165,10 @@ async function updateCustomer(customerId: number, customer: any): Promise<Custom
         addCustomer, 
         updateCustomer,
         deleteCustomer,
-        getPaymentByCustomerId
+        getPaymentByCustomerId,
+        getEpensesByCustomerId,
+        addPayment,
+        addExpense
 
     }
   
