@@ -116,4 +116,42 @@ router.get("/customer/:customerId/expenses", async (request: Request, response: 
     }
 });
 
+router.post("/addFollowedCust", async (request: Request, response: Response, next: NextFunction) => {
+    try {
+        const { customerId, status } = request.body; // קבלת המידע מ-body של הבקשה
+        const updated = await customersLogic.addFollow(customerId, status); // עדכון הסטטוס
+        if (updated) {
+            response.json({ message: 'סטטוס הלקוח עודכן בהצלחה' });
+        } else {
+            response.status(400).json({ message: 'שגיאה בעדכון סטטוס' });
+        }
+    } catch (error: any) {
+        next(error);
+    }
+});
+
+router.post("/removeFollowedCust", async (request: Request, response: Response, next: NextFunction) => {
+    try {
+        const { customerId } = request.body; 
+        const removed = await customersLogic.removeFollow(customerId); 
+        if (removed) {
+            response.json({ message: 'הלקוח הוסר מהמעקב בהצלחה' });
+        } else {
+            response.status(400).json({ message: 'שגיאה בהסרת הלקוח מהמעקב' });
+        }
+    } catch (error: any) {
+        next(error);
+    }
+});
+
+
+router.get("/getCustInFollow", async (request: Request, response: Response, next: NextFunction) => {
+    try {
+        const customers = await customersLogic.getCustomersInFollow();
+        response.json(customers);
+    } catch (error: any) {
+        next(error);
+    }
+});
+
 export default router;

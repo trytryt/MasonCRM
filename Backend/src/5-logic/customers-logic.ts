@@ -4,6 +4,7 @@ import { ResourceNotFoundErrorModel, ValidationErrorModel } from "../4-models/Er
 import { OkPacket } from "mysql";
 import PaymentModel from "../4-models/PaymentModel";
 import ExpenseModel from "../4-models/ExpenseModel";
+import CustInFollow from "../4-models/CustInFollow";
 
 
 async function getAllCustomers(userId: number): Promise<CustomerModel[]> {
@@ -157,6 +158,43 @@ async function addExpense(expense: ExpenseModel): Promise<ExpenseModel> {
     return expense;
 }
 
+async function addFollow(customerId: number, status: boolean): Promise<boolean> {
+    const sql = `
+        INSERT INTO customerInFollow (customerId, status) 
+        VALUES (?, ?)
+    `;
+    
+    const result = await dal.execute(sql, [customerId, status]);
+    
+    return result.affectedRows > 0;
+}
+
+
+async function removeFollow(customerId: number): Promise<boolean> {
+    const sql = `
+        UPDATE customerInFollow
+        SET status = false
+        WHERE customerId = ? AND status = true;  
+    `;
+    
+    const result = await dal.execute(sql, [customerId]);
+    
+    return result.affectedRows > 0;
+}
+
+async function getCustomersInFollow(): Promise<CustInFollow[]> {
+    const sql = `
+        SELECT cf.followedId, cf.customerId, c.name, c.phoneNumber, c.adress
+        FROM customerinfollow cf
+        INNER JOIN customer c ON cf.customerId = c.customerId
+        WHERE cf.status = true
+        ORDER BY c.name ASC;
+    `;
+
+    const customersInFollow = await dal.execute(sql, []);
+    return customersInFollow;
+}
+
 
     
     export default {
@@ -168,7 +206,10 @@ async function addExpense(expense: ExpenseModel): Promise<ExpenseModel> {
         getPaymentByCustomerId,
         getEpensesByCustomerId,
         addPayment,
-        addExpense
+        addExpense,
+        addFollow,
+        removeFollow,
+        getCustomersInFollow
 
     }
   
