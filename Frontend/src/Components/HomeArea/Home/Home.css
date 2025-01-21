@@ -1,0 +1,22 @@
+.Home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.giphy-embed {
+    margin-bottom: 10px;
+}
+
+
+.icon-button-hover {
+    transition: all 0.3s ease;
+}
+
+.icon-button-hover:hover {
+    background-color: red; 
+    border-radius: 50%; 
+}

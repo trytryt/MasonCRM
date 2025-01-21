@@ -1,0 +1,43 @@
+
+.CustomersList {
+    padding: 20px;
+    text-align: center;
+}
+
+.customers-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.customer-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.customer-card h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.customer-card p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+button {
+    background-color: #f25252; /* צבע רקע עדין */
+    border: 1px solid #ccc; /* מסגרת עדינה */
+    border-radius: 8px; /* פינות מעוגלות */
+    padding: 10px 20px; /* גודל הכפתור */
+    font-size: 16px; /* טקסט גדול יותר */
+    color: #0f4276; /* צבע טקסט */
+    cursor: pointer; /* חיווי שהכפתור ניתן ללחיצה */
+    transition: all 0.3s ease; /* אנימציה חלקה */
+}

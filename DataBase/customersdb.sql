@@ -152,7 +152,7 @@ INSERT INTO `payments` (`paymentId`, `customerId`, `userId`, `amount`, `paymentD
 CREATE TABLE `user` (
   `userId` int(11) NOT NULL,
   `userName` varchar(15) NOT NULL,
-  `password` varchar(15) NOT NULL
+  `password` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

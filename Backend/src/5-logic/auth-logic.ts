@@ -1,19 +1,23 @@
 import dal from "../2-utils/dal";
-import { OkPacket } from "mysql";
+import {OkPacket} from "mysql";
 import tokens from "../2-utils/tokens";
 
-import { ValidationErrorModel , UnauthorizedErrorModel} from "../4-models/ErrorModel";
+import {UnauthorizedErrorModel, ValidationErrorModel} from "../4-models/ErrorModel";
 import {UserModel} from "../4-models/UserModel";
 import CredentialsModel from "../4-models/CredentialsModel";
+import bcrypt from 'bcryptjs';
+
+// const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 async function register (user:UserModel):Promise<string>{
+console.log('register logic');
+    // const error = user.validate();
+    // if (error) throw new ValidationErrorModel(error);
 
-    const error = user.validate();
-    if (error) throw new ValidationErrorModel(error);
-
-    if (await isUsernameTaken(user.userName)) {
-        throw new ValidationErrorModel(`Username ${user.userName} already taken`);
-    }
+    // if (await isUsernameTaken(user.userName)) {
+    //     throw new ValidationErrorModel(`Username ${user.userName} already taken`);
+    // }
 
     const sql = `INSERT INTO user ( userName,  password) VALUES (?, ?)
     `
@@ -21,7 +25,8 @@ async function register (user:UserModel):Promise<string>{
     console.log("With values:", [ user.userName, user.password]);
 
     try {
-        const info: OkPacket = await dal.execute(sql, [user.userName, user.password]);
+        const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+        const info: OkPacket = await dal.execute(sql, [user.userName, hashedPassword]);
         console.log("SQL execution info:", info);
         
         user.userId = info.insertId;
@@ -36,27 +41,23 @@ async function register (user:UserModel):Promise<string>{
     }
 }
 async function login(credentials: CredentialsModel): Promise<string> {
-    console.log(credentials)
-
     const error = credentials.validation();
-  if (error) throw new ValidationErrorModel(error);
+    if (error) throw new ValidationErrorModel(error);
 
-    // credentials.password = tokens.hash(credentials.password)
-    console.log(credentials.password)
-    const sql = `SELECT * FROM user WHERE userName = ? AND password = ?`;
-
-    const users = await dal.execute(sql, [credentials.userName, credentials.password])
+    const sql = `SELECT * FROM user WHERE userName = ?`;
+    const users = await dal.execute(sql, [credentials.userName])
     console.log(users);
 
     if (users.length === 0) {
         throw new UnauthorizedErrorModel("Incorrect username or password");
     }
-
-  
     const user = users[0];
-    const token = tokens.getNewToken(user)
+    const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+    if (!isPasswordValid) {
+        throw new UnauthorizedErrorModel('Invalid credentials');
+    }
 
-    return token
+    return tokens.getNewToken(user)
 
 }
 async function isUsernameTaken(userName: string): Promise<boolean> {

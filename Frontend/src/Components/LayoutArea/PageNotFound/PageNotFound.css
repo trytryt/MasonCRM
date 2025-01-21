@@ -1,0 +1,17 @@
+.PageNotFound {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    flex-direction: column;
+  }
+
+  .PageNotFound .illustration {
+    width: 700px;
+    height: 700px;
+    background-image: url('https://internetdevels.com/sites/default/files/public/blog_preview/404_page_cover.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }

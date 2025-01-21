@@ -13,7 +13,11 @@ console.log("BeezratHashem!!!");
 
 const server = express()
 
-server.use(cors())
+server.use(cors({
+    origin: 'http://localhost:3000',  // Allow frontend requests from localhost:3000
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,  // Allow sending cookies with the request
+}))
 server.use(express.json())
 server.use(fileUpload());
 server.use("/api",customersController)

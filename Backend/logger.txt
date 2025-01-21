@@ -538,3 +538,50 @@ function toLocaleTimeString() { [native code] } 	 "adress" length must be at lea
 function toLocaleTimeString() { [native code] } 	 id No expenses found for customerId 8 not exist---------------------------------------
 function toLocaleTimeString() { [native code] } 	 id No expenses found for customerId 8 not exist---------------------------------------
 function toLocaleTimeString() { [native code] } 	 id No expenses found for customerId 7 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 connect ECONNREFUSED 127.0.0.1:3306---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /ws not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 connect ECONNREFUSED 127.0.0.1:3306---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /auth/register not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 "userName" is required---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /test not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /test not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /test not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /test not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /api/test not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /api/test not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /api/auth/test not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /auth/test not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route / not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Cannot set headers after they are sent to the client---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Failed to register user: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Failed to register user: getaddrinfo ENOTFOUND db---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Cannot set headers after they are sent to the client---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Failed to register user: ER_DATA_TOO_LONG: Data too long for column 'password' at row 1---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Incorrect username or password---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No expenses found for customerId 7 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No expenses found for customerId 7 not exist---------------------------------------
