@@ -160,7 +160,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userId`, `userName`, `password`) VALUES
-(1, 'yosi', '123456'),
+(1, 'yosi', '$2a$10$2s8LfaGWkakofBVECCbQceMrhEWx7VkVGue9bMMxi8C3qpq3X8LOW'),
 (2, 'YosefAmrani1', 'YosefAmrani1'),
 (3, 'Danss', 'Fuxss');
 

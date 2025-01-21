@@ -1,12 +1,12 @@
 class PaymentModel {
     paymentId: number;
     customerId: number;
-    userId: number;
+    userId: number | null;
     amount: number;
     paymentDate: Date;
     isPaid: boolean;
 
-    constructor(paymentId: number, customerId: number,userId: number, amount: number, paymentDate: Date, isPaid: boolean) {
+    constructor(paymentId: number, customerId: number,userId: number|null, amount: number, paymentDate: Date, isPaid: boolean) {
         this.paymentId = paymentId;
         this.customerId = customerId;
         this.userId = userId;

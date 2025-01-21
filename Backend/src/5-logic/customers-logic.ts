@@ -115,9 +115,9 @@ async function updateCustomer(customerId: number, customer: any): Promise<Custom
         
         const payments = await dal.execute(sql, [customerId]);
     
-        if (!payments || payments.length === 0) {
-            throw new ResourceNotFoundErrorModel(`No payments found for customerId ${customerId}`);
-        }
+        // if (!payments || payments.length === 0) {
+        //     throw new ResourceNotFoundErrorModel(`No payments found for customerId ${customerId}`);
+        // }
     
         return payments;
     }
@@ -129,10 +129,9 @@ async function updateCustomer(customerId: number, customer: any): Promise<Custom
         WHERE customerId = ?`;
         
         const expenses = await dal.execute(sql, [customerId]);
-    
-        if (!expenses || expenses.length === 0) {
-            throw new ResourceNotFoundErrorModel(`No expenses found for customerId ${customerId}`);
-        }
+        // if (!expenses) {
+        //     throw new ResourceNotFoundErrorModel(`No expenses found for customerId ${customerId}`);
+        // }
     
         return expenses;
     }
