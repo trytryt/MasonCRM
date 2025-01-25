@@ -22,10 +22,10 @@ function AuthMenu(): JSX.Element {
         <div className="AuthMenu">
             {!user && (
                 <>
-                    <span>Hello Guest |</span>
+                    <span>שלום אורח |</span>
 
                     <span> | </span>
-                    <NavLink to="/register">Register</NavLink>
+                    <NavLink to="/register">הרשמה</NavLink>
                 </>
             )}
             {user && (
@@ -38,15 +38,18 @@ function AuthMenu(): JSX.Element {
               mr: 1,
             }}
           >
-            Hello {user.userName} 
+             {user.userName} שלום
           </Typography>
+                     {!user && (
                     <NavLink to="/login"><Button variant="outlined" size="small">
-                    Login
+                    התחברות
                     </Button></NavLink>
-
+                     )}
+                     {user && (
                     <NavLink to="/logout"><Button variant="outlined" size="small">
-                        Logout
+                        יציאה
                     </Button></NavLink>
+                     )}
                 </>
             )}
         </div>

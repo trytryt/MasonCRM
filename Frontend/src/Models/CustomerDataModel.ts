@@ -4,6 +4,7 @@ export interface CustomerData {
      name: string;
      adress: string;
      phoneNumber: string;
+     status: number;
     };
     expenses: {
         chomarimId: number;

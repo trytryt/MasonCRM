@@ -20,7 +20,8 @@ function Routing(): JSX.Element {
                 <Route path="/home" element={<Home />} />
                 <Route path="/list" element={<CustomersList/>} />  
                 <Route path="/add-customer/:userId" element={<AddCustomer />} />
-                <Route path="/customer/:customerId" element={<CustomerPage />} />   
+                <Route path="/customer/:userId/edit/:customerId" element={<AddCustomer />} />
+                <Route path="/customer/:customerId" element={<CustomerPage />} />
                 <Route path="/" element={<Navigate to="/home" />} />
                  <Route path="*" element={<PageNotFound />} />
             </Routes>

@@ -585,3 +585,50 @@ function toLocaleTimeString() { [native code] } 	 Failed to register user: ER_DA
 function toLocaleTimeString() { [native code] } 	 Incorrect username or password---------------------------------------
 function toLocaleTimeString() { [native code] } 	 id No expenses found for customerId 7 not exist---------------------------------------
 function toLocaleTimeString() { [native code] } 	 id No expenses found for customerId 7 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 "name" is required---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 7 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 7 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 "name" is required---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 7 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 7 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 7 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 7 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id No payments found for customerId 7 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_NULL_ERROR: Column 'userId' cannot be null---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_NULL_ERROR: Column 'userId' cannot be null---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_NULL_ERROR: Column 'userId' cannot be null---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_NULL_ERROR: Column 'userId' cannot be null---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Cannot read properties of undefined (reading 'customerId')---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Cannot read properties of undefined (reading 'customerId')---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_TRUNCATED_WRONG_VALUE: Incorrect date value: '2025-01-21T21:32:40.433Z' for column 'paymentDate' at row 1---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_TRUNCATED_WRONG_VALUE: Incorrect date value: 'Tue Jan 21 2025' for column 'paymentDate' at row 1---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_TRUNCATED_WRONG_VALUE: Incorrect date value: '2025-01-21T21:34:57.053Z' for column 'paymentDate' at row 1---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_NULL_ERROR: Column 'amount' cannot be null---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_NULL_ERROR: Column 'amount' cannot be null---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'date' in 'order clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'date' in 'order clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'date' in 'order clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'id' in 'order clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'comarimId' in 'order clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'comarimId' in 'order clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'comarimId' in 'order clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'comarimId' in 'order clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 WARN_DATA_TRUNCATED: Data truncated for column 'chomarimCategory' at row 1---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'NaN' in 'where clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`customersdb`.`customer`, CONSTRAINT `FK_customer_rseId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE)---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_NO_REFERENCED_ROW_2: Cannot add or update a child row: a foreign key constraint fails (`customersdb`.`customer`, CONSTRAINT `FK_customer_rseId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE)---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_NON_UNIQ_ERROR: Column 'customerId' in where clause is ambiguous---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'status = 1
+        WHERE customerId = 7
+          AND status <> 0' at line 4---------------------------------------
+function toLocaleTimeString() { [native code] } 	 "customerStatus" must be less than or equal to 1---------------------------------------
+function toLocaleTimeString() { [native code] } 	 "customerStatus" must be less than or equal to 1---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id DESC ASC' at line 4---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customerId DESC ASC' at line 4---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customerId DESC' at line 4---------------------------------------

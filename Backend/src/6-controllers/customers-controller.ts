@@ -1,14 +1,18 @@
 import express, { NextFunction, Request, Response } from "express";
 import customersLogic from "../5-logic/customers-logic";
+import e_chomarim from '../4-models/ExpenseModel'
 
 const router = express.Router();
 
 // Get all customers by userId
 router.get("/customers/:userId", async (request: Request, response: Response, next: NextFunction) => {
     try {
-        const userId = +request.params.userId; 
-        const customers = await customersLogic.getAllCustomers(userId);
-        response.json(customers);
+        const userId = +request.params.userId;
+        const freeSearch = typeof request.query.freeSearch == 'string' ? request.query.freeSearch : undefined;
+        const page = +request.query.page;
+        const limit = +request.query.limit;
+        const results = await customersLogic.getAllCustomers(userId, freeSearch, page, limit);
+        response.send(results);
     } catch (error: any) {
         next(error);
     }

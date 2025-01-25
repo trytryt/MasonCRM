@@ -5,6 +5,7 @@ class Config {
     public getOneCustomerUrl = "http://localhost:3002/api/customer/:customerId"
 
     public addCustomerUrl = "http://localhost:3002/api/customer/:userId"
+    public saveCustomerUrl = "http://localhost:3002/api/customer/:userId/"
 
     public updateCustomerUrl = "http://localhost:3002/api/customer/:customerId"
 

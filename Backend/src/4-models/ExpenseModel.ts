@@ -2,7 +2,8 @@
 enum ChomerimCategory {
     ChomerShachor = "חומר שחור",
     ChomerLavan = "חומר לבן",
-    KablanMishneh = "קבלן משנה"
+    KablanMishneh = "קבלן משנה",
+    Sapak = "ספק"
 }
 
 class ExpenseModel {

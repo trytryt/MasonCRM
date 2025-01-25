@@ -22,6 +22,7 @@ services:
   frontend:
     build:
       context: ./Frontend
+    restart: always
     ports:
       - "3000:3000"
     environment:

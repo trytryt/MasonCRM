@@ -7,6 +7,7 @@ class CustomerModel {
     public adress: string;
     public phoneNumber: string;
     public userId: number;
+    public customerStatus: number;
 
 
     public constructor(customer: CustomerModel) {
@@ -15,6 +16,7 @@ class CustomerModel {
         this.adress = customer.adress
         this.phoneNumber = customer.phoneNumber
         this.userId = customer.userId || 0
+        this.customerStatus = customer.customerStatus || 1
     }
 
     private static validationSchema = Joi.object({
@@ -22,8 +24,8 @@ class CustomerModel {
         name: Joi.string().required().min(2).max(100),
         adress: Joi.string().required().min(3).max(30),
         phoneNumber: Joi.string().required().min(5),
-        userId: Joi.number().required()
-
+        userId: Joi.number().required(),
+        customerStatus: Joi.number().min(0).max(2)
     });
 
     public validate(): string {

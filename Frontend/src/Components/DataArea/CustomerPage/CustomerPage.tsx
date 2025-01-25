@@ -11,8 +11,8 @@ export function CustomerPage(): JSX.Element {
     const { customerId } = useParams<{ customerId: string }>();
     const [customerData, setCustomerData] = useState<CustomerData | null>(null);
 
-    const [paymentAmount, setPaymentAmount] = useState<number>();
-    const [expenseAmount, setExpenseAmount] = useState<number>();
+    const [paymentAmount, setPaymentAmount] = useState<number | undefined>();
+    const [expenseAmount, setExpenseAmount] = useState<number | undefined>();
     const [expenseCategory, setExpenseCategory] = useState<string>("");
     useEffect(() => {
         getCustomerData();
@@ -43,6 +43,7 @@ export function CustomerPage(): JSX.Element {
             const paymentData = { amount: paymentAmount, paymentDate: new Date().toISOString().split('T')[0], isPaid: true };
             await customersService.addPaymentToCustomer(+customerId!, paymentData);
             toast.success("Payment added successfully!");
+            setPaymentAmount(undefined);
             getCustomerData();
         } catch (err: any) {
             toast.error("Failed to add payment: " + err.message);
@@ -54,14 +55,16 @@ export function CustomerPage(): JSX.Element {
             const expenseData = { expenseTypeId: 1, chomarimCategory: expenseCategory, amount: expenseAmount };
             await customersService.addExpenseToCustomer(+customerId!, expenseData);
             toast.success("Expense added successfully!");
+            setExpenseAmount(undefined);
+            setExpenseCategory('');
             getCustomerData(); 
         } catch (err: any) {
             toast.error("Failed to add expense: " + err.message);
         }
     };
 
-    const totalPayments = customerData?.payments.reduce((sum, p) => sum + p.amount, 0) || 0;
-    const totalExpenses = customerData?.expenses.reduce((sum, e) => sum + e.amount, 0) || 0;
+    const totalPayments = customerData?.payments?.reduce((sum, p) => sum + p.amount, 0) || 0;
+    const totalExpenses = customerData?.expenses?.reduce((sum, e) => sum + e.amount, 0) || 0;
     const balance = totalPayments - totalExpenses; // חישוב היתרה
 
     return (
@@ -87,7 +90,7 @@ export function CustomerPage(): JSX.Element {
                                 <input
                                     type="number"
                                     placeholder="סכום הכנסה"
-                                    value={paymentAmount}
+                                    value={paymentAmount ?? ''}
                                     onChange={(e) => setPaymentAmount(+e.target.value)}
                                 />
                                 <button onClick={addPayment}>הוספה</button>
@@ -144,7 +147,7 @@ export function CustomerPage(): JSX.Element {
                     </div>
                 </div>
             ) : (
-                <p>Loading customer details...</p>
+                <p>טוען לקוחות, נא המתן...</p>
             )}
         </div>
 

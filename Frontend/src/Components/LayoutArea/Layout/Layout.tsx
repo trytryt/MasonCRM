@@ -9,24 +9,24 @@ function Layout(): JSX.Element {
     return (
         <div className="Layout">
 			    
-                <header>
+            <header>
                 <Header/>
             </header>
 
-            <aside>
-                <Menu/>
-               
-            </aside>
+            {/*<aside>*/}
+            {/*    <Menu/>*/}
+            {/*   */}
+            {/*</aside>*/}
 
-            <main>
-                
+            {/*<main>*/}
+            {/*    */}
             
-            <Routing/>
-            </main>
+            {/*<Routing/>*/}
+            {/*</main>*/}
 
-            <footer>
-                <Footer/>
-            </footer>
+            {/*<footer>*/}
+            {/*    <Footer/>*/}
+            {/*</footer>*/}
         </div>
     );
 }

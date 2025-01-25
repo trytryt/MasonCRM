@@ -1,24 +1,53 @@
 import dal from "../2-utils/dal";
 import CustomerModel from "../4-models/CutomersModel";
-import { ResourceNotFoundErrorModel, ValidationErrorModel } from "../4-models/ErrorModel";
-import { OkPacket } from "mysql";
+import {ResourceNotFoundErrorModel, ValidationErrorModel} from "../4-models/ErrorModel";
+import {OkPacket} from "mysql";
 import PaymentModel from "../4-models/PaymentModel";
 import ExpenseModel from "../4-models/ExpenseModel";
 import CustInFollow from "../4-models/CustInFollow";
 
 
-async function getAllCustomers(userId: number): Promise<CustomerModel[]> {
-    const sql = `SELECT customerId, name, adress, phoneNumber
-    FROM customer 
-    WHERE userId = ?
-    ORDER BY name ASC `;
-    const customers = await dal.execute(sql, [userId])
-    return customers
+async function getAllCustomers(
+    userId: number,
+    freeSearch: string|undefined,
+    page: number,
+    limit: number):
+Promise<{ customers: CustomerModel[]; count: number}> {
+    const conditions = ` WHERE userId = ?
+        AND customerStatus <> 0 
+        ${freeSearch ? ` AND (name LIKE ? OR adress LIKE ? OR phoneNumber LIKE ?)` : ""}`;
+
+    const countSql = `SELECT COUNT(*) AS count
+            FROM customer 
+            ${conditions}`;
+
+    const customersSql = `SELECT customerId, name, adress, phoneNumber, customerStatus
+            FROM customer 
+            ${conditions}
+            ORDER BY customerStatus ASC, customerId DESC 
+            LIMIT ? OFFSET ?`;
+
+    const baseParams : ([number | string])= [userId];
+    if(freeSearch){
+        const searchParam = `%${freeSearch}%`;
+        baseParams.push(searchParam, searchParam, searchParam);
+    }
+
+    const count = await dal.execute(countSql, baseParams)
+
+    const paginationParams = [...baseParams, limit, page];
+    console.log("SQL: " + customersSql);
+    console.log("SQL: " + countSql);
+    console.log("pageination " + JSON.stringify(paginationParams));
+    const customers = await dal.execute(customersSql, paginationParams);
+    return {
+        customers, count
+    }
 }
 
 async function getOneCustomer(customerId: number): Promise<CustomerModel> {
     console.log(customerId)
-    const sql = `SELECT * FROM customer WHERE customerId = ?`;
+    const sql = `SELECT * FROM customer WHERE customerId = ? AND customerStatus <> 0`;
     const customers = await dal.execute(sql, [customerId]) 
 
     const customer = customers[0]
@@ -75,14 +104,17 @@ async function updateCustomer(customerId: number, customer: any): Promise<Custom
         UPDATE customer SET 
             name = ?, 
             adress = ?, 
-            phoneNumber = ?
+            phoneNumber = ?,
+            customerStatus = ?
         WHERE customerId = ?
+          AND customerStatus <> 0
     `;
 
     const info: OkPacket = await dal.execute(sql, [
-        customerInstance.name, 
-        customerInstance.adress, 
-        customerInstance.phoneNumber, 
+        customerInstance.name,
+        customerInstance.adress,
+        customerInstance.phoneNumber,
+        customerInstance.customerStatus,
         customerId
     ]);
 
@@ -94,7 +126,6 @@ async function updateCustomer(customerId: number, customer: any): Promise<Custom
 
     async function deleteCustomer(customerId: number): Promise<void> {
         try {
-          
             const deletePaymentsSql = `DELETE FROM payments WHERE customerId = ?`;
             await dal.execute(deletePaymentsSql, [customerId]);
 
@@ -109,31 +140,26 @@ async function updateCustomer(customerId: number, customer: any): Promise<Custom
 
     async function getPaymentByCustomerId(customerId: number): Promise<PaymentModel[]> {
         const sql = `
-            SELECT paymentId, customerId, amount, paymentDate, isPaid
-            FROM payments
-            WHERE customerId = ?`;
-        
-        const payments = await dal.execute(sql, [customerId]);
-    
-        // if (!payments || payments.length === 0) {
-        //     throw new ResourceNotFoundErrorModel(`No payments found for customerId ${customerId}`);
-        // }
-    
-        return payments;
+            SELECT paymentId, p.customerId, amount, paymentDate, isPaid
+            FROM payments p
+            INNER JOIN customer c ON c.customerId = p.customerId
+            WHERE p.customerId = ?
+            AND c.customerStatus <> 0
+            ORDER BY paymentId DESC`;
+
+        return await dal.execute(sql, [customerId]);
     }
 
-    async function getEpensesByCustomerId(customerId: number): Promise<PaymentModel[]> {
+    async function getEpensesByCustomerId(customerId: number): Promise<ExpenseModel[]> {
         const sql = `
-        SELECT chomarimId, customerId, expenseTypeId, chomarimCategory, amount
-        FROM chomarim
-        WHERE customerId = ?`;
-        
-        const expenses = await dal.execute(sql, [customerId]);
-        // if (!expenses) {
-        //     throw new ResourceNotFoundErrorModel(`No expenses found for customerId ${customerId}`);
-        // }
-    
-        return expenses;
+        SELECT chomarimId, cm.customerId, expenseTypeId, chomarimCategory, amount
+        FROM chomarim cm
+        INNER JOIN customer c ON c.customerId = cm.customerId
+        WHERE cm.customerId = ? 
+        AND c.customerStatus <> 0
+        ORDER BY cm.chomarimId DESC`;
+
+        return await dal.execute(sql, [customerId]);
     }
     // הוספת הכנסה חדשה
 async function addPayment(payment: PaymentModel): Promise<PaymentModel> {

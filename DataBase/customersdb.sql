@@ -33,7 +33,7 @@ CREATE TABLE `chomarim` (
   `chomarimId` int(11) NOT NULL,
   `customerId` int(11) DEFAULT NULL,
   `expenseTypeId` int(11) DEFAULT NULL,
-  `chomarimCategory` enum('chomerLavan','kablanMishne','chomerShachor') NOT NULL,
+  `chomarimCategory` enum('ChomerLavan','KablanMishne','ChomerShachor', 'Sapak') NOT NULL,
   `amount` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -64,7 +64,8 @@ CREATE TABLE `customer` (
   `userId` int(11) DEFAULT NULL,
   `name` varchar(20) NOT NULL,
   `adress` varchar(40) NOT NULL,
-  `phoneNumber` varchar(10) NOT NULL
+  `phoneNumber` varchar(10) NOT NULL,
+  `customerStatus` tinyint(1) NOT NULL DEAFULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
