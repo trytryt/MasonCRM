@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import UserModel from "../../../Models/UserModel";
 import { authStore } from "../../../Redux/AuthState";
 import { Button, Typography } from "@mui/material";
+import { FaSignOutAlt } from "react-icons/fa";
 
 
 function AuthMenu(): JSX.Element {
@@ -20,14 +21,12 @@ function AuthMenu(): JSX.Element {
 
     return (
         <div className="AuthMenu">
-            {!user && (
-                <>
-                    <span>שלום אורח |</span>
-
-                    <span> | </span>
-                    <NavLink to="/register">הרשמה</NavLink>
-                </>
-            )}
+            {/*{!user && (*/}
+            {/*    <>*/}
+            {/*        <span>שלום אורח |</span>*/}
+            {/*        <NavLink to="/register">הרשמה</NavLink>*/}
+            {/*    </>*/}
+            {/*)}*/}
             {user && (
                 <>
                      <Typography
@@ -38,16 +37,17 @@ function AuthMenu(): JSX.Element {
               mr: 1,
             }}
           >
-             {user.userName} שלום
+             שלום {user.userName}
           </Typography>
-                     {!user && (
-                    <NavLink to="/login"><Button variant="outlined" size="small">
-                    התחברות
-                    </Button></NavLink>
-                     )}
+                    {/* {!user && (*/}
+                    {/*<NavLink to="/login"><Button variant="outlined" size="small">*/}
+                    {/*התחברות*/}
+                    {/*</Button></NavLink>*/}
+                    {/*     */}
+                    {/* )}*/}
                      {user && (
                     <NavLink to="/logout"><Button variant="outlined" size="small">
-                        יציאה
+                        <FaSignOutAlt className="mr-2" /> יציאה
                     </Button></NavLink>
                      )}
                 </>

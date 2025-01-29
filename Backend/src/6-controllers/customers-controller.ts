@@ -1,6 +1,9 @@
 import express, { NextFunction, Request, Response } from "express";
 import customersLogic from "../5-logic/customers-logic";
+import { fileUploadMiddleware } from '../3-middleWare/fileUploadMiddleware'
 import e_chomarim from '../4-models/ExpenseModel'
+import documentModel from "../4-models/DocumentModel";
+import DocumentModel from "../4-models/DocumentModel";
 
 const router = express.Router();
 
@@ -9,9 +12,9 @@ router.get("/customers/:userId", async (request: Request, response: Response, ne
     try {
         const userId = +request.params.userId;
         const freeSearch = typeof request.query.freeSearch == 'string' ? request.query.freeSearch : undefined;
-        const page = +request.query.page;
+        const offset = +request.query.offset;
         const limit = +request.query.limit;
-        const results = await customersLogic.getAllCustomers(userId, freeSearch, page, limit);
+        const results = await customersLogic.getAllCustomers(userId, freeSearch, offset, limit);
         response.send(results);
     } catch (error: any) {
         next(error);
@@ -25,10 +28,12 @@ router.get("/customer/:customerId", async (request: Request, response: Response,
         const customer = await customersLogic.getOneCustomer(customerId);
         const expenses = await customersLogic.getEpensesByCustomerId(customerId);
         const payments = await customersLogic.getPaymentByCustomerId(customerId);
+        const documents = await customersLogic.getDocumentsByCustomerId(customerId);
         const result = {
             customer,
             expenses,
-            payments
+            payments,
+            documents
         };
         response.json(result);
     } catch (error: any) {
@@ -63,6 +68,42 @@ router.post("/customer/:customerId/expense", async (request: Request, response: 
         next(error);
     }
 });
+
+// Example of your endpoint (ensure it is correctly handling file uploads)
+router.post('/customer/:customerId/upload', fileUploadMiddleware, async (request: Request, response: Response) => {
+    try {
+        // Ensure the file has been uploaded successfully
+        if (!request.file) {
+            return response.status(400).send('No file uploaded');
+        }
+
+        // Get customerId from the route parameter
+        const customerId = +request.params.customerId;
+
+        // Prepare the document object based on the uploaded file
+        const document = new DocumentModel({
+            documentId: null, // or set as null if you prefer to auto-generate
+            customerId: customerId,
+            documentName: request.file.originalname, // Using original name of the file for documentName
+            filePath: `/uploads/${request.file.filename}`,
+            uploadDate: new Date().toISOString(), // Set the current date as upload date
+        });
+
+        const validationError = document.validate();
+        if (validationError) {
+            return response.status(400).send(validationError); // Return the validation error
+        }
+console.log('validate');
+        const addedDocument = await customersLogic.addDocument(document);
+        response.status(200).send('File uploaded and document added successfully');
+
+    } catch (error) {
+        console.error('Error uploading document:', error);
+        response.status(500).send('Error uploading file');
+    }
+});
+
+
 
 // Add a new customer
 router.post("/customer/:userId", async (request: Request, response: Response, next: NextFunction) => {

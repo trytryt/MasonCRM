@@ -21,4 +21,11 @@ export interface CustomerData {
         paymentDate: string;
         isPaid: boolean;
     }[];
+    documents: {
+        documentId: number;
+        customerId: number;
+        documentName: string;
+        filePath: string;
+        uploadDate: string;
+    }[];
 }

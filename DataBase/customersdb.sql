@@ -92,6 +92,7 @@ INSERT INTO `customer` (`customerId`, `userId`, `name`, `adress`, `phoneNumber`)
 CREATE TABLE `documents` (
   `documentId` int(11) NOT NULL,
   `customerId` int(11) NOT NULL,
+  `documentName` varchar(255) NOT NULL,
   `filePath` varchar(255) NOT NULL,
   `uploadDate` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

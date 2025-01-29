@@ -14,7 +14,7 @@ function Register(): JSX.Element {
         try {
             await authService.register(user);
             toast.success('Welcome!');
-            setTimeout(() => navigate('/home'), 2000);
+            setTimeout(() => navigate('/list'), 2000);
         } catch (error: any) {
             toast.error(error.message);
         }

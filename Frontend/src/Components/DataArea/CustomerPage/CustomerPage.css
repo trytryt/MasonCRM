@@ -71,18 +71,17 @@
 /* General styling for the page */
 .CustomerPage {
     font-family: Arial, sans-serif;
-    max-width: 900px;
-    margin: 0 auto;
+    /*max-width: 900px;*/
+    /*margin: 0 auto;*/
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
     direction: rtl;
+    text-align: right;
 }
 
 /* Customer details section */
 .customer-details {
-    /*text-align: left;*/
+    text-align: right;
 }
 
 .customer-details h2 {
@@ -91,7 +90,7 @@
 }
 
 .customer-details p {
-    margin: 5px 0;
+    margin: 10px 0;
     color: #555;
 }
 
@@ -174,8 +173,13 @@
 
 /* Loading message */
 .CustomerPage p {
-    text-align: center;
-    color: #888;
+    text-align: right;
+    color: black;
+}
+
+.button-wrap{
+    width: 100%;
+    text-align: left;
 }
 
 /* Responsive design */
@@ -232,4 +236,18 @@
 
 .customer-details ul::-webkit-scrollbar-thumb:hover {
     background-color: #555;
+}
+
+table, th, tr, td {
+    border: 1px solid #274F60FF;
+}
+
+table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+table td, table th{
+    width: 31%;
+    padding: 1% 2%;
 }

@@ -57,7 +57,7 @@ import CredentialsModel from '../../../Models/CredentialsModel';
 import AuthService from '../../../Services/AuthService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 
 function Login(): JSX.Element {
     const { register, handleSubmit } = useForm<CredentialsModel>();
@@ -68,7 +68,7 @@ function Login(): JSX.Element {
             await AuthService.login(credentials);
 
           
-            toast.success('Welcome Back!');
+            toast.success('טוב שחזרת!');
 
             setTimeout(() => navigate('/list'), 1000);
         } catch (error: any) {
@@ -79,31 +79,53 @@ function Login(): JSX.Element {
 
     return (
         <Container maxWidth="xs">
-            <Box sx={{ mt: 4, p: 4, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 3 }}>
-                <Typography variant="h5" gutterBottom>
-                    Login
-                </Typography>
+            <Box sx={{ mt: 4, p: 4, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 3 }} dir="rtl">
                 <form onSubmit={handleSubmit(send)}>
                     <TextField
                         fullWidth
-                        label="Username"
+                        label="שם משתמש"
                         {...register('userName')}
                         variant="outlined"
                         margin="normal"
                         required
+                        InputProps={{
+                            style: { textAlign: "right" }, // Aligns text to the right in the input
+                        }}
+                        inputProps={{
+                            style: { direction: "rtl", textAlign: "right" }, // Aligns text and placeholder
+                        }}
                     />
                     <TextField
                         fullWidth
                         type="password"
-                        label="Password"
-                        {...register('password')}
+                        label="סיסמה"
+                        {...register("password")}
                         variant="outlined"
                         margin="normal"
                         required
+                        InputProps={{
+                            style: { textAlign: "right" }, // Aligns text to the right in the input
+                        }}
+                        inputProps={{
+                            style: { direction: "rtl", textAlign: "right" }, // Aligns text and placeholder
+                        }}
                     />
-                    <Button type="submit" variant="contained" color="primary"  sx={{ mt: 2 }}>
-                        Login
-                    </Button>
+                    <div className="action-buttons">
+                        <Button
+                            className="register-btn"
+                            type="button"
+                            variant="contained"
+                            color="primary"
+                            sx={{ mt: 2 }}
+                        >
+                            <NavLink style={{ textDecoration: "none", color: "white" }} to="/register">
+                                הרשמה
+                            </NavLink>
+                        </Button>
+                        <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+                            כניסה
+                        </Button>
+                    </div>
                 </form>
             </Box>
 

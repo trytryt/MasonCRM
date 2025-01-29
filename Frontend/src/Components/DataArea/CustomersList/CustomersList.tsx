@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import "./CustomersList.css";
 import CustomersModel from "../../../Models/CustomersModel";
 import { authStore } from "../../../Redux/AuthState";
@@ -6,30 +6,56 @@ import customersService from "../../../Services/CustomersService";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import {FaCheckCircle, FaEdit, FaTimesCircle, FaTrash} from "react-icons/fa";
 
 
 export function CustomersList(): JSX.Element {
     const [customers, setCustomers] = useState<CustomersModel[]>([]);
     const [freeSearch, setFreeSearch] = useState("");
     const [totalRecords, setTotalRecords] = useState(20);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemPerPage] = useState(20);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [itemPerPage] = useState(9);
 
     useEffect(() => {
         getData();
-    }, [itemPerPage, currentPage, freeSearch]);
+    },[currentPage]);
 
     const getData = async () => {
-        try {console.log(freeSearch);
+        try {
             const userId = authStore.getState().user?.userId;
             if (!userId) throw new Error("User ID is not available");
             const results = await customersService.getAllCustomers(userId, freeSearch, currentPage, itemPerPage);
-            setCustomers(results.customers);
+            setCustomers([...customers, ...results.customers]);
+            setTotalRecords(results.count);
         } catch (err: any) {
             toast(err.message);
         }
     };
+
+    const loadMore = async () => {
+        setCurrentPage((prevPage) => prevPage + itemPerPage);
+    }
+
+    const search = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            // Reset current page and clear customers
+            setCurrentPage(0);
+            setCustomers([]);
+
+            // Fetch new search results
+            const userId = authStore.getState().user?.userId;
+            if (!userId) throw new Error("User ID is not available");
+
+            const results = await customersService.getAllCustomers(userId, freeSearch, 0, itemPerPage);
+
+            // Update customers with only the search results
+            setCustomers(results.customers);
+            setTotalRecords(results.count);
+        } catch (err: any) {
+            toast(err.message);
+        }
+    }
 
 
 const navigate = useNavigate();
@@ -96,49 +122,70 @@ const goToAddCustomerPage = (customerId?: number | undefined) => {
     return (
 
         <div className="CustomersList">
-            <h2>הלקחות שלי</h2>
-            <form className="search-form" onSubmit={(e) => {
-                e.preventDefault();
-                getData();
-            }}>
-                <input
-                    type="text"
-                    value={freeSearch}
-                    onChange={(e) => setFreeSearch(e.target.value)}
-                    placeholder="חפש"
-                />
-                <button type="submit">חפש</button>
-            </form>
-            <button onClick={() => goToAddCustomerPage()}>לקוח חדש +</button>
+            {/*<h2>הלקחות שלי</h2>*/}
+            <div className={"head-list"}>
+                <form className="search-form" onSubmit={search}>
+                    <input
+                        type="text"
+                        value={freeSearch}
+                        onChange={(e) => setFreeSearch(e.target.value)}
+                        placeholder="הכנס שם / כתובת / נייד"
+                    />
+                    <button type="submit">חפש</button>
+                </form>
+                <button onClick={() => goToAddCustomerPage()}>לקוח חדש +</button>
+            </div>
+
+            <span className={"found-txt"}>נמצאו <span>{totalRecords}</span> לקוחות</span>
 
             <div className="customers-container">
                 {customers.length > 0 ? (
                     customers.map(customer => (
                         <div key={customer.customerId} className="customer-card">
-                            <h3>{customer.name}</h3>
-                            <p><strong>Address:</strong> {customer.adress}</p>
-                            <p><strong>Phone:</strong> {customer.phoneNumber}</p>
-                            {/* כפתור "MORE" */}
-
-                            <div><span>{customer.customerStatus}</span>
-                                {customer.customerStatus == 1 ? (
-                                    <FaCheckCircle size={30} color="green"/>
-                                ) : (
-                                    <FaTimesCircle size={30} color="red"/>
-                                )}
-                                <button onClick={() => toggleStatus(customer)}>
-                                    {customer.customerStatus == 1 ? "פעיל" : "לא פעיל"}
+                            <div>
+                                <button
+                                    className={`button-status ${customer.customerStatus === 1 ? "btn-active" : "btn-inactive"}`}
+                                    onClick={() => toggleStatus(customer)}>
+                                    {customer.customerStatus === 1 ? (
+                                        <>
+                                            <FaCheckCircle className="mr-2"/> פעיל
+                                        </>
+                                    ) : (
+                                        <>
+                                            <FaTimesCircle className={"mr-2"}/> לא פעיל
+                                        </>
+                                    )}
                                 </button>
                             </div>
-                            <button onClick={() => goToAddCustomerPage(customer.customerId)}>מחיקה</button>
-                            <button onClick={() => goToAddCustomerPage(customer.customerId)}>עריכה</button>
-                            <Link to={`/customer/${customer.customerId}`} className="more-button">
-                                <button>קרא עוד</button>
-                            </Link>
+                            <h3>{customer.name}</h3>
+                            <p><strong>כתובת:</strong> {customer.adress}</p>
+                            <p><strong>נייד:</strong> {customer.phoneNumber}</p>
+                            {/* כפתור "MORE" */}
+
+                            <div className={"action-buttons"}>
+                                <div className={"wrap-icons"}>
+                                    <button className={"button-icon"}
+                                            onClick={() => goToAddCustomerPage(customer.customerId)}>
+                                        <FaTrash className="mr-2"></FaTrash>
+                                    </button>
+                                    <button className={"button-icon"}
+                                            onClick={() => goToAddCustomerPage(customer.customerId)}>
+                                        <FaEdit className="mr-2"/>
+                                    </button>
+                                </div>
+                                <Link to={`/customer/${customer.customerId}`} className="more-button">
+                                    <button>קרא עוד</button>
+                                </Link>
+                            </div>
+
                         </div>
                     ))
                 ) : (
-                    <p>No customers found.</p>
+                    <p></p>
+                )}
+
+                { totalRecords > customers.length && (
+                    <button className={"load-more"} onClick={loadMore}>הצג לקוחות נוספים</button>
                 )}
 
                 {/*<div className="pagination">*/}

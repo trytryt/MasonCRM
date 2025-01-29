@@ -632,3 +632,69 @@ function toLocaleTimeString() { [native code] } 	 "customerStatus" must be less 
 function toLocaleTimeString() { [native code] } 	 ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id DESC ASC' at line 4---------------------------------------
 function toLocaleTimeString() { [native code] } 	 ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customerId DESC ASC' at line 4---------------------------------------
 function toLocaleTimeString() { [native code] } 	 ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customerId DESC' at line 4---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Cannot read properties of undefined (reading 'count')---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_NULL_ERROR: Column 'amount' cannot be null---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_NULL_ERROR: Column 'amount' cannot be null---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_NULL_ERROR: Column 'amount' cannot be null---------------------------------------
+function toLocaleTimeString() { [native code] } 	 WARN_DATA_TRUNCATED: Data truncated for column 'chomarimCategory' at row 1---------------------------------------
+function toLocaleTimeString() { [native code] } 	 WARN_DATA_TRUNCATED: Data truncated for column 'chomarimCategory' at row 1---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_SP_UNDECLARED_VAR: Undeclared variable: NaN---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_SP_UNDECLARED_VAR: Undeclared variable: NaN---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_SP_UNDECLARED_VAR: Undeclared variable: NaN---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_SP_UNDECLARED_VAR: Undeclared variable: NaN---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_SP_UNDECLARED_VAR: Undeclared variable: NaN---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_SP_UNDECLARED_VAR: Undeclared variable: NaN---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_SP_UNDECLARED_VAR: Undeclared variable: NaN---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_SP_UNDECLARED_VAR: Undeclared variable: NaN---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_SP_UNDECLARED_VAR: Undeclared variable: NaN---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_SP_UNDECLARED_VAR: Undeclared variable: NaN---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_SP_UNDECLARED_VAR: Undeclared variable: NaN---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_SP_UNDECLARED_VAR: Undeclared variable: NaN---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_SP_UNDECLARED_VAR: Undeclared variable: NaN---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_NO_SUCH_TABLE: Table 'customersdb.customers' doesn't exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'c.status' in 'where clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'c.status' in 'where clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'c.custoemrID' in 'on clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'c.custoemrID' in 'on clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'c.custoemrID' in 'on clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'c.custoemrId' in 'on clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'c.custoemrId' in 'on clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'c.custoemrId' in 'on clause'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 "customerId" must be a number---------------------------------------
+function toLocaleTimeString() { [native code] } 	 "customerId" must be a number---------------------------------------
+function toLocaleTimeString() { [native code] } 	 "customerId" must be a number---------------------------------------
+function toLocaleTimeString() { [native code] } 	 "documentName" is required---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Converting circular structure to JSON
+    --> starting at object with constructor 'Socket'
+    |     property 'parser' -> object with constructor 'HTTPParser'
+    --- property 'socket' closes the circle---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Converting circular structure to JSON
+    --> starting at object with constructor 'Socket'
+    |     property 'parser' -> object with constructor 'HTTPParser'
+    --- property 'socket' closes the circle---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /upload not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /customers/1/documents not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /customer/1/documents not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 "name" is not allowed to be empty---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Unexpected end of form---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Cannot read properties of undefined (reading 'transfer-encoding')---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Cannot set headers after they are sent to the client---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Cannot set headers after they are sent to the client---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /api/upload not exist---------------------------------------

@@ -10,7 +10,7 @@ function Logout(): JSX.Element {
     useEffect(() => {
         AuthService.logout();
 
-        toast.info("Bye Bye!");
+        toast.info("ביי ביי!");
 
         setTimeout(() => navigate("/login"), 1000);
     }, [navigate]);

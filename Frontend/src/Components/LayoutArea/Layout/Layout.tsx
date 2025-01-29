@@ -3,6 +3,7 @@ import Header from "../Header/Header";
 import Menu from "../Menu/Menu";
 import Routing from "../Routing/Routing";
 import "./Layout.css";
+import {useEffect, useState} from "react";
 
 function Layout(): JSX.Element {
 
@@ -13,20 +14,19 @@ function Layout(): JSX.Element {
                 <Header/>
             </header>
 
-            {/*<aside>*/}
-            {/*    <Menu/>*/}
-            {/*   */}
-            {/*</aside>*/}
+            <aside>
+                {/*<Menu/>*/}
+            </aside>
 
-            {/*<main>*/}
-            {/*    */}
-            
-            {/*<Routing/>*/}
-            {/*</main>*/}
+            <main>
+                <div className={"container"}>
+                    <Routing/>
+                </div>
+            </main>
 
-            {/*<footer>*/}
-            {/*    <Footer/>*/}
-            {/*</footer>*/}
+            <footer>
+                <Footer/>
+            </footer>
         </div>
     );
 }

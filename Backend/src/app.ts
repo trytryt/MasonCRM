@@ -7,7 +7,7 @@ import routeNotFound from "./3-middleWare/route-not-found";
 import appConfig from "./2-utils/app-config";
 import catchAll from "./3-middleWare/catch-all";
 import authController from "./6-controllers/auth-controller";
-import fileUpload from "express-fileupload"; 
+// import fileUpload from "express-fileupload";
 import customersController from "./6-controllers/customers-controller";
 console.log("BeezratHashem!!!");
 
@@ -19,7 +19,7 @@ server.use(cors({
     credentials: true,  // Allow sending cookies with the request
 }))
 server.use(express.json())
-server.use(fileUpload());
+// server.use(fileUpload());
 server.use("/api",customersController)
 server.use("/api", authController)
 

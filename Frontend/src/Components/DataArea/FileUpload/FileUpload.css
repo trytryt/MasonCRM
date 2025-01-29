@@ -1,0 +1,11 @@
+.drag-drop-zone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.drag-drop-zone.active {
+    background-color: #f0f8ff;
+}
