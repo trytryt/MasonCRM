@@ -1,5 +1,7 @@
 class Config {
 
+    public port = 3002
+
     public getAllCustomresUrl = "http://localhost:3002/api/customers/:userId"
 
     public getOneCustomerUrl = "http://localhost:3002/api/customer/:customerId"

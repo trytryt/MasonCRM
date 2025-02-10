@@ -67,19 +67,22 @@ function Login(): JSX.Element {
         try {
             await AuthService.login(credentials);
 
-          
+
             toast.success('טוב שחזרת!');
 
             setTimeout(() => navigate('/list'), 1000);
         } catch (error: any) {
-         
+
             toast.error(error.message);
         }
     }
 
     return (
         <Container maxWidth="xs">
-            <Box sx={{ mt: 4, p: 4, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 3 }} dir="rtl">
+            <Box sx={{ mt: 4, p: 4, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 3 }}>
+                {/*<Typography variant="h5" gutterBottom>*/}
+                {/*    Login*/}
+                {/*</Typography>*/}
                 <form onSubmit={handleSubmit(send)}>
                     <TextField
                         fullWidth
@@ -88,18 +91,12 @@ function Login(): JSX.Element {
                         variant="outlined"
                         margin="normal"
                         required
-                        InputProps={{
-                            style: { textAlign: "right" }, // Aligns text to the right in the input
-                        }}
-                        inputProps={{
-                            style: { direction: "rtl", textAlign: "right" }, // Aligns text and placeholder
-                        }}
                     />
                     <TextField
                         fullWidth
                         type="password"
                         label="סיסמה"
-                        {...register("password")}
+                        {...register('password')}
                         variant="outlined"
                         margin="normal"
                         required

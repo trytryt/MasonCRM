@@ -18,7 +18,7 @@ class AuthService {
         authStore.dispatch({ type: AuthActionType.Register, payload: token })
     }
 
-    public async login(credentials: CredentialsModel): Promise<void> {console.log(2222222233);
+    public async login(credentials: CredentialsModel): Promise<void> {
         const response = await axios.post<CredentialsModel>(appConfig.loginUrl, credentials)
         const token = response.data
         console.log(token + "service token");

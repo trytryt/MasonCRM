@@ -5,11 +5,11 @@ import customersService from "../../../Services/CustomersService";
 import { toast } from "react-toastify";
 import { CustomerData } from "../../../Models/CustomerDataModel";
 import { FileUpload } from "../FileUpload/FileUpload";
+import appConfig from "../../../Utils/Config";
 
 export function CustomerPage(): JSX.Element {
     const { customerId } = useParams<{ customerId: string }>();
     const [customerData, setCustomerData] = useState<CustomerData | null>(null);
-
     const [paymentAmount, setPaymentAmount] = useState<number | undefined>();
     const [expenseAmount, setExpenseAmount] = useState<number | undefined>();
     const [expenseCategory, setExpenseCategory] = useState<string>("");
@@ -59,9 +59,9 @@ export function CustomerPage(): JSX.Element {
         e.preventDefault();
         try {
             const expenseData = {
-                expenseTypeId: 1,
                 chomarimCategory: expenseCategory,
                 amount: expenseAmount,
+                updateDate: new Date().toISOString().split("T")[0],
             };
             await customersService.addExpenseToCustomer(+customerId!, expenseData);
             toast.success("הוצאה נוספה בהצלחה");
@@ -100,12 +100,14 @@ export function CustomerPage(): JSX.Element {
                                     value={paymentAmount ?? ""}
                                     onChange={(e) => setPaymentAmount(+e.target.value)}
                                 />
-                                <button type="submit">הוספה</button>
+                                <div className={"button-wrap"}>
+                                    <button type="submit">הוספה</button>
+                                </div>
                             </form>
                             <table>
                                 <thead>
                                 <tr>
-                                    <th>סכום</th>
+                                <th>סכום</th>
                                     <th>תאריך</th>
                                     <th>סטטוס</th>
                                 </tr>
@@ -145,23 +147,25 @@ export function CustomerPage(): JSX.Element {
                                     value={expenseCategory}
                                     onChange={(e) => setExpenseCategory(e.target.value)}
                                 />
-                                <button type="submit">הוספה</button>
+                                <div className={"button-wrap"}>
+                                    <button type="submit">הוספה</button>
+                                </div>
                             </form>
                             <table>
                                 <thead>
                                 <tr>
-                                    <th>סוג</th>
-                                    <th>קטגוריה</th>
                                     <th>סכום</th>
+                                    <th>קטגוריה</th>
+                                    <th>תאריך</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {customerData.expenses?.length ? (
                                     customerData.expenses.map((expense) => (
                                         <tr key={expense.chomarimId}>
-                                            <td>{expense.expenseTypeId}</td>
-                                            <td>{expense.chomarimCategory}</td>
                                             <td>{expense.amount} ₪</td>
+                                            <td>{expense.chomarimCategory}</td>
+                                            <td>{formatDate(expense.updateDate)}</td>
                                         </tr>
                                     ))
                                 ) : (
@@ -175,10 +179,40 @@ export function CustomerPage(): JSX.Element {
                     </div>
 
                     {/* Documents Section */}
-                    <div>
-                        <h3>מסמכים</h3>
-                        <FileUpload customerId={+customerId!}/>
-                        {/* Handle documents here */}
+                    <div className="payments-expenses documents">
+                        <div>
+                            <h3>מסמכים</h3>
+                            <FileUpload customerId={+customerId!} getCustomerData={getCustomerData}/>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>שם מסמך</th>
+                                        <th>תאריך</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {customerData.documents.length > 0 ? (
+                                    customerData.documents.map((document) => (
+                                        <tr>
+                                            <td>{document.documentId}</td>
+                                            <td> 
+                                                <a target={"_blank"} href={'http://localhost:' + appConfig.port + "/uploads/" + document.filePath} title={document.documentName}>
+                                                    {document.documentName}
+                                                </a>
+                                            </td>
+                                            <td>{formatDate(document.uploadDate)}</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={3}>אין מסמכים</td>
+                                    </tr>
+                                )}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             ) : (

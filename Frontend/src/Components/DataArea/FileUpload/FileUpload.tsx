@@ -3,11 +3,12 @@ import axios from "axios";
 
 interface FileUploadProps {
     customerId?: number;
+    getCustomerData: () => void;
 }
 
 
-export function FileUpload(customerId: FileUploadProps): JSX.Element {
-    const [file, setFile] = useState<File | null>(null);
+export function FileUpload({ customerId, getCustomerData }: FileUploadProps): JSX.Element {
+    const [file, setFile] = useState<File | null>();
     const [uploadProgress, setUploadProgress] = useState<number>(0);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,14 +31,13 @@ export function FileUpload(customerId: FileUploadProps): JSX.Element {
             const response = await axios.post(`http://localhost:3002/api/customer/${customerId}/upload`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                },
-                // onUploadProgress: (progressEvent) => {
-                //     const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                //     setUploadProgress(progress);
-                // },
+                }
             });
 
+            getCustomerData();
             console.log("File path from server: ", response.data.filePath);
+            setFile(null);
+            (document.querySelector("input[type='file']") as HTMLInputElement).value = "";
         } catch (error: any) {
             console.log(`Error uploading file: ${error.message}`);
         } finally {
@@ -50,7 +50,7 @@ export function FileUpload(customerId: FileUploadProps): JSX.Element {
         <div>
             {/*<h3>Upload a File</h3>*/}
             <form onSubmit={handleFileUpload}>
-                <input type="file" onChange={handleFileChange} />
+                <input type="file" onChange={handleFileChange}/>
                 <button type="submit" disabled={!file}>
                     העלאה
                 </button>

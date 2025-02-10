@@ -4,7 +4,7 @@ export interface CustomerData {
      name: string;
      adress: string;
      phoneNumber: string;
-     status: number;
+     customerStatus: number;
     };
     expenses: {
         chomarimId: number;
@@ -12,6 +12,7 @@ export interface CustomerData {
         expenseTypeId: number;
         chomarimCategory: string;
         amount: number;
+        updateDate: string;
     }[];
     payments: {
         paymentId: number;

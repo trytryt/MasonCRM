@@ -7,8 +7,9 @@
 .customers-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; /* Use space-between to remove gaps on the sides */
-    gap: 16px;
+    /* justify-content: space-between;
+    gap: 16px; */
+    gap: 21px;
     margin-top: 20px;
     width: 100%; /* Ensure the container takes the full width */
     padding: 0; /* Remove any padding inside the container */
@@ -79,8 +80,9 @@ button.btn-inactive{
     margin-top: 20px;
     display: inline-block;
 }
-.load-more{
-    margin: 0 auto;
+.wrap-load-btn{
+    width: 100%;
+    text-align: center;
 }
 @media (max-width: 768px) {
 .customer-card {

@@ -30,6 +30,17 @@
     border-radius: 5px;
 }
 
+.form-group input[type=checkbox] {
+    width: 10%;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.form-group label[for=status] {
+    display: inline-block;
+    width: auto;
+}
+
 .form-group button {
     width: 100%;
     padding: 10px;

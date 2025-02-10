@@ -15,6 +15,9 @@ export function CustomersList(): JSX.Element {
     const [totalRecords, setTotalRecords] = useState(20);
     const [currentPage, setCurrentPage] = useState(0);
     const [itemPerPage] = useState(9);
+    const [customerForDelete, setCustomerForDelete] = useState<CustomersModel>();
+    const [confirm, setConfirm] = useState(false);
+
 
     useEffect(() => {
         getData();
@@ -110,18 +113,37 @@ const goToAddCustomerPage = (customerId?: number | undefined) => {
         }
     }
 
-    const trashCustomer = (customerId: number) => {
+    const trashCustomer = async (e: React.FormEvent<HTMLFormElement>, customer: CustomersModel) => {
+        e.preventDefault();
         const userId = authStore.getState().user?.userId;
         if (userId) {
-
+            customer.customerStatus = 0;
+            await customersService.updateCustomer(customer);
+            setCustomers(c => c.filter(item => item.customerId != customer.customerId))
+            toast.success("הלקוח נמחק בהצלחה");
         } else {
             toast.error("אין לך הרשאות לפעולה זו");
         }
     }
 
+    const confirmationDelete = (customer: CustomersModel) => {
+        setCustomerForDelete(customer);
+        setConfirm(true);
+    }
+
     return (
 
         <div className="CustomersList">
+
+            {confirm &&  <div className="confirmation">
+                <form onSubmit={(e) => trashCustomer(e, customerForDelete)}>
+                    <p>האם אתה בטוח שברצונך למחוק את  {customerForDelete?.name}?</p>
+                    <div className="wrap-icons">
+                        <button className="cancel-btn" onClick={() => setConfirm(false)}>ביטול</button>
+                        <button type="submit" className="conf-btn">מחיקה</button>
+                    </div>
+                </form>
+            </div>}
             {/*<h2>הלקחות שלי</h2>*/}
             <div className={"head-list"}>
                 <form className="search-form" onSubmit={search}>
@@ -165,7 +187,7 @@ const goToAddCustomerPage = (customerId?: number | undefined) => {
                             <div className={"action-buttons"}>
                                 <div className={"wrap-icons"}>
                                     <button className={"button-icon"}
-                                            onClick={() => goToAddCustomerPage(customer.customerId)}>
+                                            onClick={() => confirmationDelete(customer)}>
                                         <FaTrash className="mr-2"></FaTrash>
                                     </button>
                                     <button className={"button-icon"}
@@ -185,7 +207,9 @@ const goToAddCustomerPage = (customerId?: number | undefined) => {
                 )}
 
                 { totalRecords > customers.length && (
-                    <button className={"load-more"} onClick={loadMore}>הצג לקוחות נוספים</button>
+                    <div className="wrap-load-btn">
+                        <button className={"load-more"} onClick={loadMore}>הצג לקוחות נוספים</button>
+                    </div>
                 )}
 
                 {/*<div className="pagination">*/}
