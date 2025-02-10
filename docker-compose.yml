@@ -14,6 +14,7 @@ services:
       - DB_NAME=customersdb
     volumes:
       - ./Backend:/src
+      - ./Backend/uploads:/src/uploads  # Ensure uploads folder is mapped
     depends_on:
       - db
     networks:

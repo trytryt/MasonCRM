@@ -16,7 +16,7 @@ class CustomerModel {
         this.adress = customer.adress
         this.phoneNumber = customer.phoneNumber
         this.userId = customer.userId || 0
-        this.customerStatus = customer.customerStatus || 1
+        this.customerStatus = customer.customerStatus
     }
 
     private static validationSchema = Joi.object({

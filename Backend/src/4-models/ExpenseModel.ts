@@ -12,19 +12,22 @@ class ExpenseModel {
     expenseTypeId: number;
     chomarimCategory: ChomerimCategory; // סוג הוצאה מתוך ה-ENUM
     amount: number;
+    updateDate: string;
 
     constructor(
         chomarimId: number, 
         customerId: number, 
         expenseTypeId: number, 
         chomarimCategory: ChomerimCategory, 
-        amount: number
+        amount: number,
+        updateDate: string,
     ) {
         this.chomarimId = chomarimId;
         this.customerId = customerId;
         this.expenseTypeId = expenseTypeId;
         this.chomarimCategory = chomarimCategory;
         this.amount = amount;
+        this.updateDate = updateDate;
     }
 }
 

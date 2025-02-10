@@ -70,38 +70,42 @@ router.post("/customer/:customerId/expense", async (request: Request, response: 
 });
 
 // Example of your endpoint (ensure it is correctly handling file uploads)
-router.post('/customer/:customerId/upload', fileUploadMiddleware, async (request: Request, response: Response) => {
+router.post('/customer/:customerId/upload', fileUploadMiddleware, async (req: Request, res: Response) => {
     try {
-        // Ensure the file has been uploaded successfully
-        if (!request.file) {
-            return response.status(400).send('No file uploaded');
+        const customerId = +req.params.customerId;
+        const uploadedFile = (req as any).uploadedFile;
+
+        if (!uploadedFile) {
+            return res.status(400).json({ message: 'File upload failed!' });
         }
 
-        // Get customerId from the route parameter
-        const customerId = +request.params.customerId;
-
-        // Prepare the document object based on the uploaded file
         const document = new DocumentModel({
-            documentId: null, // or set as null if you prefer to auto-generate
+            documentId: null,  // Assuming documentId is auto-generated
             customerId: customerId,
-            documentName: request.file.originalname, // Using original name of the file for documentName
-            filePath: `/uploads/${request.file.filename}`,
-            uploadDate: new Date().toISOString(), // Set the current date as upload date
+            documentName: uploadedFile.originalName,
+            filePath: uploadedFile.fileName,
+            uploadDate: new Date().toISOString(),
         });
 
         const validationError = document.validate();
         if (validationError) {
-            return response.status(400).send(validationError); // Return the validation error
+            return res.status(400).json({ message: validationError });
         }
-console.log('validate');
-        const addedDocument = await customersLogic.addDocument(document);
-        response.status(200).send('File uploaded and document added successfully');
 
-    } catch (error) {
-        console.error('Error uploading document:', error);
-        response.status(500).send('Error uploading file');
+        // Save the document (assuming `addDocument` is an async function)
+        const addedDocument = await customersLogic.addDocument(document);
+
+        // Send the response with the document details
+        res.status(200).json({
+            message: 'File uploaded and document saved successfully!',
+            document: addedDocument,
+        });
+    } catch (err) {
+        console.error('Error in controller:', err);
+        res.status(500).json({ message: 'Server error' });
     }
 });
+
 
 
 
@@ -122,6 +126,7 @@ router.put("/customer/:customerId", async (request: Request, response: Response,
     try {
         const customerId = +request.params.customerId;
         const customer = request.body;
+        console.log(customer);
         const updatedCustomer = await customersLogic.updateCustomer(customerId, customer);
         response.json(updatedCustomer);
     } catch (error: any) {

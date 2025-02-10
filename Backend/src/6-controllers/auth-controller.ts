@@ -18,7 +18,7 @@ const router = express.Router()
 
 
  router.post("/auth/login" ,async(request:Request,response:Response,next:NextFunction)=>{
-    try {
+    try {console.log(1111111222222);
         const credentials = new CredentialsModel(request.body)
         const token = await authLogic.login(credentials)
         response.status(200).json(token)

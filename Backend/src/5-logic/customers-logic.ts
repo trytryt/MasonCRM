@@ -68,8 +68,8 @@ async function addCustomer(customer: any, userId: number): Promise<CustomerModel
     console.log("customer from back", customerInstance);
 
     const sql = `
-        INSERT INTO customer (name, adress, phoneNumber, userId) 
-        VALUES (?, ?, ?, ?)
+        INSERT INTO customer (name, adress, phoneNumber, userId, customerStatus) 
+        VALUES (?, ?, ?, ?, ?)
     `;
 
     console.log("customer before insert id:", customerInstance);
@@ -78,7 +78,8 @@ async function addCustomer(customer: any, userId: number): Promise<CustomerModel
         customerInstance.name,
         customerInstance.adress,
         customerInstance.phoneNumber,
-        userId
+        userId,
+        customerInstance.customerStatus
     ]);
 
     console.log("Insert info:", info);
@@ -115,7 +116,7 @@ async function updateCustomer(customerId: number, customer: any): Promise<Custom
         customerInstance.customerStatus,
         customerId
     ]);
-
+console.log(customerInstance);
     if (info.affectedRows === 0) {
         throw new ResourceNotFoundErrorModel(`${customerId}`);
     }
@@ -150,7 +151,7 @@ async function updateCustomer(customerId: number, customer: any): Promise<Custom
 
     async function getEpensesByCustomerId(customerId: number): Promise<ExpenseModel[]> {
         const sql = `
-        SELECT chomarimId, cm.customerId, expenseTypeId, chomarimCategory, amount
+        SELECT chomarimId, cm.customerId, expenseTypeId, chomarimCategory, amount, updateDate
         FROM chomarim cm
         INNER JOIN customer c ON c.customerId = cm.customerId
         WHERE cm.customerId = ? 
@@ -173,10 +174,10 @@ async function addPayment(payment: PaymentModel): Promise<PaymentModel> {
 // הוספת הוצאה חדשה
 async function addExpense(expense: ExpenseModel): Promise<ExpenseModel> {
     const sql = `
-        INSERT INTO chomarim (customerId, expenseTypeId, chomarimCategory, amount)
-        VALUES (?, ?, ?, ?)`;
+        INSERT INTO chomarim (customerId, expenseTypeId, chomarimCategory, amount, updateDate)
+        VALUES (?, ?, ?, ?, ?)`;
 
-    const result = await dal.execute(sql, [expense.customerId, expense.expenseTypeId, expense.chomarimCategory, expense.amount]);
+    const result = await dal.execute(sql, [expense.customerId, expense.expenseTypeId, expense.chomarimCategory, expense.amount, expense.updateDate]);
     expense.chomarimId = result.insertId; // מזהה ההוצאה החדשה
     return expense;
 }
@@ -197,7 +198,7 @@ async function getDocumentsByCustomerId(
         ON c.customerId = d.customerId
         WHERE c.customerStatus <> 0
         AND d.customerId = ?
-        ORDER BY uploadDate DESC`;
+        ORDER BY documentId DESC`;
 
     return await dal.execute(sql, [customerId]);
 }

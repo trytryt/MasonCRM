@@ -55,11 +55,16 @@ export const fileUploadMiddleware = (req: any, res: any, next: any) => {
         const fullFilePath = path.resolve(uploadDir, req.file.filename);
         console.log('File uploaded successfully:', fullFilePath);
 
-        // Return success message with the full file path
-        res.status(200).json({
-            message: 'File uploaded successfully!',
+        // Attach file data to request object
+        req.uploadedFile = {
             filePath: fullFilePath,
             fileName: req.file.filename,
-        });
+            originalName: req.file.originalname,
+            mimetype: req.file.mimetype,
+            size: req.file.size,
+        };
+
+        // Pass control to the next middleware/controller
+        next();
     });
 };

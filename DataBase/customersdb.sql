@@ -65,7 +65,7 @@ CREATE TABLE `customer` (
   `name` varchar(20) NOT NULL,
   `adress` varchar(40) NOT NULL,
   `phoneNumber` varchar(10) NOT NULL,
-  `customerStatus` tinyint(1) NOT NULL DEAFULT 1
+  `customerStatus` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -124,7 +124,7 @@ INSERT INTO `expensetypes` (`expenseTypeId`, `expenseTypeName`) VALUES
 CREATE TABLE `payments` (
   `paymentId` int(11) NOT NULL,
   `customerId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
+  `userId` int(11) NULL,
   `amount` int(10) NOT NULL,
   `paymentDate` date NOT NULL,
   `isPaid` tinyint(1) NOT NULL

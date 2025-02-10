@@ -698,3 +698,44 @@ function toLocaleTimeString() { [native code] } 	 Cannot read properties of unde
 function toLocaleTimeString() { [native code] } 	 Cannot set headers after they are sent to the client---------------------------------------
 function toLocaleTimeString() { [native code] } 	 Cannot set headers after they are sent to the client---------------------------------------
 function toLocaleTimeString() { [native code] } 	 Route /api/upload not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /Backend/src/uploads/1738263893848-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /favicon.ico not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /customer/wsl.localhost/Ubuntu/home/ayala/MasonCRM/Backend/src/uploads/1738263893848-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_NO_SUCH_TABLE: Table 'customersdb.user' doesn't exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_NULL_ERROR: Column 'userId' cannot be null---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_NULL_ERROR: Column 'userId' cannot be null---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_NULL_ERROR: Column 'userId' cannot be null---------------------------------------
+function toLocaleTimeString() { [native code] } 	 WARN_DATA_TRUNCATED: Data truncated for column 'chomarimCategory' at row 1---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?)' at line 2---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?)' at line 2---------------------------------------
+function toLocaleTimeString() { [native code] } 	 ER_BAD_FIELD_ERROR: Unknown column 'updateDate' in 'field list'---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /Backend/src/uploads/1738278720222-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /favicon.ico not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738278720222-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /1738278720222-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738278720222-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738278720222-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738278720222-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738278720222-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738278720222-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738278720222-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738278720222-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738263571141-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738263571141-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738263571141-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738263571141-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738263571141-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738263571141-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738263571141-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738263571141-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738263571141-1.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738616674011-scan0002.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738616674011-scan0002.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /src/uploads/1738616674011-scan0002.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738616674011-scan0002.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738616674011-scan0002.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738616674011-scan0002.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads/1738616674011-scan0002.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 Route /uploads//uploads/1738617991658-scan0002.jpg not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id 19 not exist---------------------------------------
+function toLocaleTimeString() { [native code] } 	 id 19 not exist---------------------------------------
