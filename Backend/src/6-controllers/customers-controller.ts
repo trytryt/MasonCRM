@@ -106,7 +106,25 @@ router.post('/customer/:customerId/upload', fileUploadMiddleware, async (req: Re
     }
 });
 
+router.get('/customer/:userId/month-balance', async(request: Request, response: Response, next: NextFunction) => {
+    try {
+        const userId = +request.params.userId;
+        const results = await customersLogic.fetchBalancePerMonth(userId);
+        response.status(200).json(results);
+    } catch(err) {
+        next(err);
+    }
+});
 
+router.get('/customer/:userId/year-balance', async(request: Request, response: Response, next: NextFunction) => {
+    try {
+        const userId = +request.params.userId;
+        const results = await customersLogic.fetchBalancePerYear(userId);
+        response.status(200).json(results);
+    } catch(err) {
+        next(err);
+    }
+});
 
 
 // Add a new customer

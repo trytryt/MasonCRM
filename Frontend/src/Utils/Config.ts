@@ -18,8 +18,11 @@ class Config {
     public addPaymentToCustomer = "http://localhost:3002/api/customer/:customerId/payment"
 
     public addExpenseToCustomer = "http://localhost:3002/api/customer/:customerId/expense"
+    public fetchBalancePerMonth = "http://localhost:3002/api/customer/:userId/month-balance"
+    public fetchBalancePerYear = "http://localhost:3002/api/customer/:userId/year-balance"
+
+
     public addDocumentToCustomer = "http://localhost:3002/api/customer/:customerId/documents"
-    // public addDocumentToCustomer = "http://localhost:3002/api/upload"
     public getDocumentsByCustomerId = "http://localhost:3002/api/customer/:customerId/documents"
 
     // --------------------------------

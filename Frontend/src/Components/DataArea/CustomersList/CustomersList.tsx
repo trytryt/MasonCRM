@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {FaCheckCircle, FaEdit, FaTimesCircle, FaTrash} from "react-icons/fa";
+import { BasicLineChart } from "../BasicLineChart/BasicLineChart"
 
 
 export function CustomersList(): JSX.Element {
@@ -132,9 +133,8 @@ const goToAddCustomerPage = (customerId?: number | undefined) => {
     }
 
     return (
-
+        
         <div className="CustomersList">
-
             {confirm &&  <div className="confirmation">
                 <form onSubmit={(e) => trashCustomer(e, customerForDelete)}>
                     <p>האם אתה בטוח שברצונך למחוק את  {customerForDelete?.name}?</p>
@@ -155,7 +155,10 @@ const goToAddCustomerPage = (customerId?: number | undefined) => {
                     />
                     <button type="submit">חפש</button>
                 </form>
-                <button onClick={() => goToAddCustomerPage()}>לקוח חדש +</button>
+                <div>
+                    <span className={"graf-link"} onClick={() => navigate('/Balance')}>לתצוגת יתרות</span>
+                    <button onClick={() => goToAddCustomerPage()}>לקוח חדש +</button>
+                </div>
             </div>
 
             <span className={"found-txt"}>נמצאו <span>{totalRecords}</span> לקוחות</span>

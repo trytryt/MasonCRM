@@ -6,6 +6,9 @@ import PaymentModel from "../4-models/PaymentModel";
 import ExpenseModel from "../4-models/ExpenseModel";
 import CustInFollow from "../4-models/CustInFollow";
 import DocumentModel from "../4-models/DocumentModel";
+import { publicDecrypt } from "crypto";
+import { start } from "repl";
+import { func } from "joi";
 
 
 async function getAllCustomers(
@@ -39,14 +42,13 @@ async function getAllCustomers(
 
         const paginationParams = [...baseParams, limit, offset];
         const customers = await dal.execute(customersSql, paginationParams);
-console.log(JSON.stringify(paginationParams));
+
         return {
             customers, count
         }
 }
 
 async function getOneCustomer(customerId: number): Promise<CustomerModel> {
-    console.log(customerId)
     const sql = `SELECT * FROM customer WHERE customerId = ? AND customerStatus <> 0`;
     const customers = await dal.execute(sql, [customerId]) 
 
@@ -182,6 +184,112 @@ async function addExpense(expense: ExpenseModel): Promise<ExpenseModel> {
     return expense;
 }
 
+async function fetchExpensesPerMonth(userId: number): Promise<{amount: number, updateMonth: string}[]> {
+    const startDate = new Date();
+    startDate.setFullYear(startDate.getFullYear() - 1).toString();
+
+    const sql = `SELECT SUM(amount) AS amount, DATE_FORMAT(updateDate, '%Y-%m-1') AS updateMonth 
+        FROM chomarim cm
+        INNER JOIN customer c
+        ON cm.customerId = c.customerId
+        WHERE updateDate > ?
+        AND userId = ?
+        AND customerStatus <> 0
+        GROUP BY updateMonth
+        ORDER BY updateMonth`;
+
+    return await dal.execute(sql, [startDate, userId]);
+}
+
+async function fetchPaymentsPerMonth(userId: number): Promise<{amount: number, updateMonth: string}[]> {
+    const startDate = new Date();
+    startDate.setFullYear(startDate.getFullYear() - 1);
+    const sql = `SELECT SUM(amount) AS amount, DATE_FORMAT(paymentDate, '%Y-%m-1') AS updateMonth 
+        FROM payments p
+        INNER JOIN customer c
+        ON p.customerId = c.customerId
+        WHERE paymentDate > ?
+        AND c.userId = ?
+        AND customerStatus <> 0
+        GROUP BY updateMonth
+        ORDER BY updateMonth`;
+
+    return await dal.execute(sql, [startDate, userId]);
+}
+
+async function fetchBalancePerMonth(userId: number): Promise<{months: string[], values: number[]}> {
+    const expenses = new Map(
+        (await fetchExpensesPerMonth(userId)).map(({amount, updateMonth}) => [updateMonth, amount])
+    );
+    const payments = new Map(
+        (await fetchPaymentsPerMonth(userId)).map(({amount, updateMonth}) => [updateMonth, amount])
+    );
+    const allMonths = Array.from(new Set(
+        [...Array.from(expenses.keys()), ...Array.from(payments.keys())]
+    )).sort((a: string,b: string) => 
+        new Date(a).getTime() - new Date(b).getTime()
+    );
+
+    return {
+        months: allMonths,
+        values: allMonths.map((value, index) => (
+            (+(payments.get(value) ?? 0)) - (+(expenses.get(value) ?? 0))
+        ))
+    }
+}
+
+async function fetchExpensesPerYear(userId: number): Promise<{amount: number, updateYear: number}[]> {
+    const startDate = new Date();
+    startDate.setFullYear(startDate.getFullYear() - 5).toString();
+ 
+    const sql = `SELECT SUM(amount) AS amount, YEAR(updateDate) AS updateYear
+        FROM chomarim cm
+        INNER JOIN customer c
+        ON cm.customerId = c.customerId
+        WHERE updateDate > ?
+        AND userId = ?
+        AND customerStatus <> 0
+        GROUP BY updateYear
+        ORDER BY updateYear`;
+
+    return await dal.execute(sql, [startDate, userId]);
+}
+
+async function fetchPaymentsPerYear(userId: number): Promise<{amount: number, updateYear: number}[]> {
+    const startDate = new Date();
+    startDate.setFullYear(startDate.getFullYear() - 5);
+    const sql = `SELECT SUM(amount) AS amount, YEAR(paymentDate) AS updateYear 
+        FROM payments p
+        INNER JOIN customer c
+        ON p.customerId = c.customerId
+        WHERE paymentDate > ?
+        AND c.userId = ?
+        AND customerStatus <> 0
+        GROUP BY updateYear
+        ORDER BY updateYear`;
+
+    return await dal.execute(sql, [startDate, userId]);
+}
+
+async function fetchBalancePerYear(userId: number): Promise<{years: number[], values: number[]}>  {
+    const expenses = new Map(
+        (await fetchExpensesPerYear(userId)).map(({amount, updateYear}) => [updateYear, amount])
+    );
+    const payments = new Map(
+        (await fetchPaymentsPerYear(userId)).map(({amount, updateYear}) => [updateYear, amount])
+    );
+    const allYears = Array.from(new Set(
+        [...Array.from(expenses.keys()), ...Array.from(payments.keys())]
+    )).sort((a: number,b: number) => a - b);
+
+    return {
+        years: allYears,
+        values: allYears.map((value, index) => (
+            (+(payments.get(value) ?? 0)) - (+(expenses.get(value) ?? 0))
+        ))
+    };
+}
+
 
 /**
  * Fetch All documents By CustomerId
@@ -286,6 +394,8 @@ async function getCustomersInFollow(): Promise<CustInFollow[]> {
         getEpensesByCustomerId,
         addPayment,
         addExpense,
+        fetchBalancePerMonth,
+        fetchBalancePerYear,
         getDocumentsByCustomerId,
         addDocument,
         addFollow,

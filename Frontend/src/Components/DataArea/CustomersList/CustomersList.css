@@ -84,6 +84,14 @@ button.btn-inactive{
     width: 100%;
     text-align: center;
 }
+.graf-link {
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 10px;
+}
+.graf-link:hover{
+    color:  #274F60FF;
+}
 @media (max-width: 768px) {
 .customer-card {
     width: 100%;

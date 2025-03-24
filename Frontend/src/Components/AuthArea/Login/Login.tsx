@@ -1,4 +1,4 @@
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import "./Login.css";
 // import { useForm } from "react-hook-form";
 // import CredentialsModel from "../../../Models/CredentialsModel";
@@ -57,7 +57,7 @@ import CredentialsModel from '../../../Models/CredentialsModel';
 import AuthService from '../../../Services/AuthService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {NavLink, useNavigate} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 function Login(): JSX.Element {
     const { register, handleSubmit } = useForm<CredentialsModel>();

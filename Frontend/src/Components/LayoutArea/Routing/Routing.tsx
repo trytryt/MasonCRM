@@ -9,6 +9,7 @@ import Register from "../../AuthArea/Register/Register";
 import { CustomersList } from "../../DataArea/CustomersList/CustomersList";
 import { CustomerPage } from "../../DataArea/CustomerPage/CustomerPage";
 import { AddCustomer } from "../../DataArea/AddCustomer/AddCustomer";
+import { BasicLineChart } from "../../DataArea/BasicLineChart/BasicLineChart";
 
 function Routing(): JSX.Element {
     return (
@@ -19,6 +20,7 @@ function Routing(): JSX.Element {
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/list" element={<CustomersList/>} />  
+                <Route path="/Balance" element={<BasicLineChart/>} />  
                 <Route path="/add-customer/:userId" element={<AddCustomer />} />
                 <Route path="/customer/:userId/edit/:customerId" element={<AddCustomer />} />
                 <Route path="/customer/:customerId" element={<CustomerPage />} />

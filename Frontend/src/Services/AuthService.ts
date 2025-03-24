@@ -8,6 +8,7 @@ import { authStore, AuthActionType } from "../Redux/AuthState";
 class AuthService {
 
     public async register(user: UserModel): Promise<void> {
+        console.log(111111111);
         const response = await axios.post<UserModel>(appConfig.registerUrl, user, {
             headers: {
                 "Content-Type": "application/json", // Ensure proper content type

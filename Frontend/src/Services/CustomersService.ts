@@ -65,6 +65,18 @@ class CustomersService {
         console.log("Expense added successfully.");
     }
 
+    public async fetchBalancePerMonth(userId: number): Promise<{months: string[], values: number[]}> {
+        const url = appConfig.fetchBalancePerMonth.replace(':userId', userId.toString());
+        const response = await axios.get<{months: string[], values: number[]}>(url);
+        return response.data;
+    }
+
+    public async fetchBalancePerYear(userId: number): Promise<{years: number[], values: number[]}> {
+        const url = appConfig.fetchBalancePerYear.replace(':userId', userId.toString());
+        const response = await axios.get<{years: number[], values: number[]}>(url);
+        return response.data;
+    }
+
     public async addDocumentToCustomer(customerId: number, files: File[]): Promise<void> {
         const url = appConfig.addDocumentToCustomer.replace(":customerId", customerId.toString());
 
