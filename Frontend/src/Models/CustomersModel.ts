@@ -1,5 +1,5 @@
 class CustomersModel {
-    public customerId: number | null; // Null אם זה לקוח חדש לפני שמירתו
+    public customerId: number | null; // Null אם לא מסופק
     public name: string;
     public adress: string;
     public phoneNumber: string; // עדיף String כי מספרי טלפון לא מחושבים

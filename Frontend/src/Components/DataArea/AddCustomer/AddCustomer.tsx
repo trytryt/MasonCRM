@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import customersService from "../../../Services/CustomersService";
 import { toast } from "react-toastify";
+import { authStore } from "../../../Redux/AuthState";
+import appConfig from "../../../Utils/Config";
 import "./AddCustomer.css";
 
 export function AddCustomer(): JSX.Element {
-    const { userId, customerId } = useParams<{ userId: string; customerId?: string }>();
+    const { customerId } = useParams<{ customerId?: string }>();
     const isEditMode = !!customerId;
     const [name, setName] = useState("");
     const [adress, setAdress] = useState("");
@@ -48,6 +50,8 @@ export function AddCustomer(): JSX.Element {
     };
 
     const addCustomer = async () => {
+        const userId = authStore.getState().user?.userId;
+        
         if (!userId) {
             toast.error("אין לך הרשאות לפעולה זו");
             return;
@@ -64,10 +68,12 @@ export function AddCustomer(): JSX.Element {
         try {
             if (isEditMode) {
                 await customersService.updateCustomer(customerData);
+                toast.success("הלקוח עודכן בהצלחה");
             } else {
-                await customersService.addCustomer(customerData, parseInt(userId));
+                await customersService.addCustomer(customerData, userId);
+                toast.success("הלקוח נוסף בהצלחה");
             }
-            navigate("/list");
+            navigate(appConfig.routes.customers);
         } catch (error: any) {
             toast.error("שגיאה: " + error.message);
         }
@@ -113,9 +119,18 @@ export function AddCustomer(): JSX.Element {
                         onChange={changeCustomerStatus}
                     />
                 </div>
-                <input type="hidden" name="id" value={+customerId ?? undefined} />
+                <input type="hidden" name="id" value={customerId ? +customerId : undefined} />
                 <div className="form-group">
                     <button type="button" onClick={addCustomer}>שמירה</button>
+                </div>
+                <div className="form-group">
+                    <button 
+                        type="button" 
+                        onClick={() => navigate(appConfig.routes.customers)}
+                        style={{ backgroundColor: '#6c757d' }}
+                    >
+                        ביטול
+                    </button>
                 </div>
             </form>
         </div>

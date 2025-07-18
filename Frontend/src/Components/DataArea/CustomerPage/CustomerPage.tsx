@@ -13,6 +13,7 @@ export function CustomerPage(): JSX.Element {
     const [paymentAmount, setPaymentAmount] = useState<number | undefined>();
     const [expenseAmount, setExpenseAmount] = useState<number | undefined>();
     const [expenseCategory, setExpenseCategory] = useState<string>("");
+    const [deletingDocumentId, setDeletingDocumentId] = useState<number | null>(null);
 
     useEffect(() => {
         getCustomerData();
@@ -58,18 +59,50 @@ export function CustomerPage(): JSX.Element {
     const addExpense = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
+            // תיקון: הוספת expenseTypeId ווידוא שכל השדות נשלחים
             const expenseData = {
-                chomarimCategory: expenseCategory,
+                expenseTypeId: 1, // ערך ברירת מחדל - ניתן להוסיף dropdown לבחירה
+                chomarimCategory: expenseCategory.trim(), // ווידוא שאין רווחים מיותרים
                 amount: expenseAmount,
                 updateDate: new Date().toISOString().split("T")[0],
             };
+            
+            console.log("Sending expense data:", expenseData); // לוג לדיבוג
+            
             await customersService.addExpenseToCustomer(+customerId!, expenseData);
             toast.success("הוצאה נוספה בהצלחה");
             setExpenseAmount(undefined);
             setExpenseCategory("");
             getCustomerData();
         } catch (err: any) {
+            console.error("Error adding expense:", err);
             toast.error("Failed to add expense: " + err.message);
+        }
+    };
+
+    // פונקציה למחיקת מסמך
+    const deleteDocument = async (documentId: number, documentName: string) => {
+        if (!window.confirm(`האם אתה בטוח שברצונך למחוק את המסמך "${documentName}"?`)) {
+            return;
+        }
+
+        setDeletingDocumentId(documentId);
+        
+        try {
+            const result = await customersService.deleteDocument(+customerId!, documentId);
+            
+            if (result.success) {
+                toast.success(result.message || "המסמך נמחק בהצלחה");
+                // רענון נתוני הלקוח לאחר מחיקה מוצלחת
+                getCustomerData();
+            } else {
+                toast.error(result.message || "שגיאה במחיקת המסמך");
+            }
+        } catch (error: any) {
+            console.error("Error deleting document:", error);
+            toast.error(error.message || "שגיאה במחיקת המסמך");
+        } finally {
+            setDeletingDocumentId(null);
         }
     };
 
@@ -143,9 +176,10 @@ export function CustomerPage(): JSX.Element {
                                 <input
                                     type="text"
                                     required
-                                    placeholder="קטגוריה"
+                                    placeholder="קטגוריה (למשל: חומר שחור, קבלן משנה)"
                                     value={expenseCategory}
                                     onChange={(e) => setExpenseCategory(e.target.value)}
+                                    maxLength={100}
                                 />
                                 <div className={"button-wrap"}>
                                     <button type="submit">הוספה</button>
@@ -164,7 +198,7 @@ export function CustomerPage(): JSX.Element {
                                     customerData.expenses.map((expense) => (
                                         <tr key={expense.chomarimId}>
                                             <td>{expense.amount} ₪</td>
-                                            <td>{expense.chomarimCategory}</td>
+                                            <td>{expense.chomarimCategory || 'לא צוין'}</td>
                                             <td>{formatDate(expense.updateDate)}</td>
                                         </tr>
                                     ))
@@ -190,24 +224,48 @@ export function CustomerPage(): JSX.Element {
                                         <th>ID</th>
                                         <th>שם מסמך</th>
                                         <th>תאריך</th>
+                                        <th>פעולות</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 {customerData.documents.length > 0 ? (
                                     customerData.documents.map((document) => (
-                                        <tr>
+                                        <tr key={document.documentId}>
                                             <td>{document.documentId}</td>
                                             <td> 
-                                                <a target={"_blank"} href={'http://localhost:' + appConfig.port + "/uploads/" + document.filePath} title={document.documentName}>
+                                                <a 
+                                                    target={"_blank"} 
+                                                    href={'http://localhost:' + appConfig.port + "/uploads/" + document.filePath} 
+                                                    title={document.documentName}
+                                                    rel="noopener noreferrer"
+                                                >
                                                     {document.documentName}
                                                 </a>
                                             </td>
                                             <td>{formatDate(document.uploadDate)}</td>
+                                            <td>
+                                                <button
+                                                    onClick={() => deleteDocument(document.documentId, document.documentName)}
+                                                    disabled={deletingDocumentId === document.documentId}
+                                                    className="delete-document-btn"
+                                                    style={{
+                                                        backgroundColor: deletingDocumentId === document.documentId ? '#ccc' : '#f44336',
+                                                        color: 'white',
+                                                        border: 'none',
+                                                        padding: '5px 10px',
+                                                        borderRadius: '3px',
+                                                        cursor: deletingDocumentId === document.documentId ? 'not-allowed' : 'pointer',
+                                                        fontSize: '12px'
+                                                    }}
+                                                >
+                                                    {deletingDocumentId === document.documentId ? 'מוחק...' : 'מחק'}
+                                                </button>
+                                            </td>
                                         </tr>
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan={3}>אין מסמכים</td>
+                                        <td colSpan={4}>אין מסמכים</td>
                                     </tr>
                                 )}
                                 </tbody>

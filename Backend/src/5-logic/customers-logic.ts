@@ -9,7 +9,8 @@ import DocumentModel from "../4-models/DocumentModel";
 import { publicDecrypt } from "crypto";
 import { start } from "repl";
 import { func } from "joi";
-
+import fs from 'fs';
+import path from 'path';
 
 async function getAllCustomers(
     userId: number,
@@ -150,9 +151,8 @@ console.log(customerInstance);
 
         return await dal.execute(sql, [customerId]);
     }
-
-    async function getEpensesByCustomerId(customerId: number): Promise<ExpenseModel[]> {
-        const sql = `
+async function getEpensesByCustomerId(customerId: number): Promise<ExpenseModel[]> {
+    const sql = `
         SELECT chomarimId, cm.customerId, expenseTypeId, chomarimCategory, amount, updateDate
         FROM chomarim cm
         INNER JOIN customer c ON c.customerId = cm.customerId
@@ -160,8 +160,14 @@ console.log(customerInstance);
         AND c.customerStatus <> 0
         ORDER BY cm.chomarimId DESC`;
 
-        return await dal.execute(sql, [customerId]);
-    }
+    console.log("Fetching expenses for customer:", customerId); // לוג לדיבוג
+    
+    const expenses = await dal.execute(sql, [customerId]);
+    
+    console.log("Fetched expenses:", expenses); // לוג לדיבוג
+    
+    return expenses;
+}
     // הוספת הכנסה חדשה
 async function addPayment(payment: PaymentModel): Promise<PaymentModel> {
     const sql = `
@@ -175,12 +181,24 @@ async function addPayment(payment: PaymentModel): Promise<PaymentModel> {
 
 // הוספת הוצאה חדשה
 async function addExpense(expense: ExpenseModel): Promise<ExpenseModel> {
+    console.log("Adding expense to database:", expense); // לוג לדיבוג
+    
     const sql = `
         INSERT INTO chomarim (customerId, expenseTypeId, chomarimCategory, amount, updateDate)
         VALUES (?, ?, ?, ?, ?)`;
 
-    const result = await dal.execute(sql, [expense.customerId, expense.expenseTypeId, expense.chomarimCategory, expense.amount, expense.updateDate]);
+    const result = await dal.execute(sql, [
+        expense.customerId, 
+        expense.expenseTypeId || 1, // ערך ברירת מחדל אם לא נשלח
+        expense.chomarimCategory, 
+        expense.amount, 
+        expense.updateDate
+    ]);
+    
     expense.chomarimId = result.insertId; // מזהה ההוצאה החדשה
+    
+    console.log("Expense added successfully with ID:", expense.chomarimId); // לוג לדיבוג
+    
     return expense;
 }
 
@@ -381,6 +399,62 @@ async function getCustomersInFollow(): Promise<CustInFollow[]> {
     const customersInFollow = await dal.execute(sql, []);
     return customersInFollow;
 }
+async function deleteDocument(documentId: number, customerId: number): Promise<{ success: boolean, message?: string }> {
+    try {
+        // קבלת פרטי המסמך לפני המחיקה
+        const documentSql = `SELECT * FROM documents WHERE documentId = ? AND customerId = ?`;
+        const documents = await dal.execute(documentSql, [documentId, customerId]);
+        
+        if (!documents || documents.length === 0) {
+            return { 
+                success: false, 
+                message: 'המסמך לא נמצא או שאינו שייך ללקוח זה' 
+            };
+        }
+
+        const document = documents[0];
+        
+        // מחיקה מבסיס הנתונים
+        const deleteSql = `DELETE FROM documents WHERE documentId = ? AND customerId = ?`;
+        const result: OkPacket = await dal.execute(deleteSql, [documentId, customerId]);
+        
+        if (result.affectedRows === 0) {
+            return { 
+                success: false, 
+                message: 'לא ניתן למחוק את המסמך מבסיס הנתונים' 
+            };
+        }
+
+        // מחיקת הקובץ הפיזי
+        try {
+            const filePath = path.join(process.cwd(), 'uploads', document.filePath);
+            
+            // בדיקה שהקובץ קיים לפני המחיקה
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+                console.log(`קובץ נמחק: ${filePath}`);
+            } else {
+                console.log(`קובץ לא נמצא במיקום: ${filePath}`);
+            }
+        } catch (fileError) {
+            console.error('שגיאה במחיקת הקובץ הפיזי:', fileError);
+            // לא נכשיל את כל הפעולה בגלל שגיאה במחיקת הקובץ
+            // כי המסמך כבר נמחק מבסיס הנתונים
+        }
+
+        return { 
+            success: true, 
+            message: 'המסמך נמחק בהצלחה' 
+        };
+
+    } catch (error) {
+        console.error('שגיאה במחיקת המסמך:', error);
+        return { 
+            success: false, 
+            message: 'שגיאה במחיקת המסמך' 
+        };
+    }
+}
 
 
     
@@ -398,6 +472,7 @@ async function getCustomersInFollow(): Promise<CustInFollow[]> {
         fetchBalancePerYear,
         getDocumentsByCustomerId,
         addDocument,
+        deleteDocument,
         addFollow,
         removeFollow,
         getCustomersInFollow

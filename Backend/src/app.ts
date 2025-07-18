@@ -5,14 +5,17 @@ import appConfig from "./2-utils/app-config";
 import catchAll from "./3-middleWare/catch-all";
 import authController from "./6-controllers/auth-controller";
 import customersController from "./6-controllers/customers-controller";
+import suppliersController from "./6-controllers/suppliers-controller";
+import stickyNotesController from "./6-controllers/sticky_notes_controller";
 import path from "path";
+
 console.log("BeezratHashem!!!");
 
 const server = express()
 
 server.use(cors({
     origin: '*', //'http://localhost:3000',  // Allow frontend requests from localhost:3000
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH'],
     credentials: true,  // Allow sending cookies with the request
 }))
 server.use(express.json())
@@ -21,6 +24,8 @@ server.use('/uploads', express.static(path.join(__dirname, '../uploads')))
 
 server.use("/api",customersController)
 server.use("/api", authController)
+server.use("/api",suppliersController) 
+server.use("/api", stickyNotesController);
 
 
 server.use("*",routeNotFound)

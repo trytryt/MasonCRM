@@ -33,10 +33,10 @@ class AuthService {
 
     }
 
-    public async refreshToken():Promise<void> {
-        const response = await axios.post<string>(appConfig.refreshToken)
-        console.log(response)
-    }
+    // public async refreshToken():Promise<void> {
+    //     const response = await axios.post<string>(appConfig.)
+    //     console.log(response)
+    // }
 }
 const authService = new AuthService()
 export default authService

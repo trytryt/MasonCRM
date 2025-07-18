@@ -1,63 +1,11 @@
-import { useNavigate } from "react-router-dom";
-// import "./Login.css";
-// import { useForm } from "react-hook-form";
-// import CredentialsModel from "../../../Models/CredentialsModel";
-// import AuthService from "../../../Services/AuthService";
-// import { ToastContainer, toast } from "react-toastify";
-// import 'react-toastify/dist/ReactToastify.css';
-// import authService from "../../../Services/AuthService";
-
-// function Login(): JSX.Element {
-//     const { register, handleSubmit } = useForm<CredentialsModel>();
-//     const navigate = useNavigate();
-
-//     async function send(credentials: CredentialsModel) {
-//         try {
-//             await authService.login(credentials);
-
-//             // Display success toast
-//             toast.success("Welcome Back!");
-
-//             setTimeout(() => navigate("/list"), 1000);
-//         } catch (error: any) {
-//             // Display error toast
-//             toast.error(error.message);
-//         }
-//     }
-
-//     return (
-//         <div className="Login Box">
-//             <form onSubmit={handleSubmit(send)}>
-//                 <h2>Login</h2>
-//                 <label>Username:</label>
-//                 <input type="text" {...register("userName")} />
-//                 <label>Password:</label>
-//                 <input type="password" {...register("password")} />
-//                 <button>Login</button>
-//             </form>
-//             <ToastContainer 
-//                 position="top-left" 
-//                 autoClose={3000} 
-//                 hideProgressBar={false} 
-//                 newestOnTop={false} 
-//                 closeOnClick 
-//                 rtl={false} 
-//                 pauseOnFocusLoss 
-//                 draggable 
-//                 pauseOnHover 
-//             />
-//         </div>
-//     );
-// }
-
-// export default Login;
 import { Button, TextField, Box, Typography, Container } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import CredentialsModel from '../../../Models/CredentialsModel';
 import AuthService from '../../../Services/AuthService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
+import appConfig from '../../../Utils/Config';
 
 function Login(): JSX.Element {
     const { register, handleSubmit } = useForm<CredentialsModel>();
@@ -67,10 +15,9 @@ function Login(): JSX.Element {
         try {
             await AuthService.login(credentials);
 
-
             toast.success('טוב שחזרת!');
 
-            setTimeout(() => navigate('/list'), 1000);
+            setTimeout(() => navigate(appConfig.routes.dashboard), 1000);
         } catch (error: any) {
 
             toast.error(error.message);
@@ -79,67 +26,47 @@ function Login(): JSX.Element {
 
     return (
         <Container maxWidth="xs">
-            <Box sx={{ mt: 4, p: 4, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 3 }}>
-                {/*<Typography variant="h5" gutterBottom>*/}
-                {/*    Login*/}
-                {/*</Typography>*/}
-                <form onSubmit={handleSubmit(send)}>
+            <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                minHeight="100vh"
+            >
+                <Typography component="h1" variant="h5">
+                    התחברות
+                </Typography>
+                <Box component="form" onSubmit={handleSubmit(send)} sx={{ mt: 1 }}>
                     <TextField
+                        margin="normal"
+                        required
                         fullWidth
                         label="שם משתמש"
-                        {...register('userName')}
-                        variant="outlined"
-                        margin="normal"
-                        required
+                        autoComplete="email"
+                        autoFocus
+                        {...register("userName")}
                     />
                     <TextField
-                        fullWidth
-                        type="password"
-                        label="סיסמה"
-                        {...register('password')}
-                        variant="outlined"
                         margin="normal"
                         required
-                        InputProps={{
-                            style: { textAlign: "right" }, // Aligns text to the right in the input
-                        }}
-                        inputProps={{
-                            style: { direction: "rtl", textAlign: "right" }, // Aligns text and placeholder
-                        }}
+                        fullWidth
+                        label="סיסמא"
+                        type="password"
+                        autoComplete="current-password"
+                        {...register("password")}
                     />
-                    <div className="action-buttons">
-                        <Button
-                            className="register-btn"
-                            type="button"
-                            variant="contained"
-                            color="primary"
-                            sx={{ mt: 2 }}
-                        >
-                            <NavLink style={{ textDecoration: "none", color: "white" }} to="/register">
-                                הרשמה
-                            </NavLink>
-                        </Button>
-                        <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
-                            כניסה
-                        </Button>
-                    </div>
-                </form>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        התחבר
+                    </Button>
+                    <NavLink to="/register">אין לך חשבון? הירשם</NavLink>
+                </Box>
+                <ToastContainer />
             </Box>
-
-            <ToastContainer
-                position="top-left"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
         </Container>
     );
-}
-
-export default Login;
-
+}export default Login;

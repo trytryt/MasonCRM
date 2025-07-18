@@ -1,0 +1,246 @@
+.sticky-note {
+    position: absolute;
+    min-width: 150px;
+    min-height: 100px;
+    max-width: 400px;
+    max-height: 400px;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.2s ease, transform 0.1s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.sticky-note:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+.sticky-note.dragging {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: rotate(2deg);
+    z-index: 1000;
+}
+
+.sticky-note.resizing {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* כפתורי פעולה */
+.note-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-bottom: 8px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.sticky-note:hover .note-controls {
+    opacity: 1;
+}
+
+.color-btn,
+.delete-btn {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.color-btn:hover {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.delete-btn {
+    color: #f44336;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.delete-btn:hover {
+    background: rgba(244, 67, 54, 0.1);
+}
+
+/* בורר צבעים */
+.color-picker {
+    position: absolute;
+    top: 35px;
+    right: 8px;
+    background: white;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    z-index: 1001;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.color-option {
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.1s ease, border-color 0.2s ease;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+/* כותרת */
+.note-title {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 8px;
+    padding: 4px;
+    border-radius: 4px;
+    user-select: text;
+    cursor: text;
+    resize: none;
+    font-family: inherit;
+}
+
+.note-title:focus {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.note-title::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+    font-weight: normal;
+}
+
+/* תוכן */
+.note-content {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.7);
+    flex: 1;
+    resize: none;
+    padding: 4px;
+    border-radius: 4px;
+    user-select: text;
+    cursor: text;
+    line-height: 1.4;
+    font-family: inherit;
+}
+
+.note-content:focus {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.note-content::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+/* ידית שינוי גודל */
+.resize-handle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    background: rgba(0, 0, 0, 0.1);
+    cursor: se-resize;
+    border-radius: 8px 0 8px 0;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.sticky-note:hover .resize-handle {
+    opacity: 1;
+}
+
+.resize-handle:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.resize-handle::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-bottom: 6px solid rgba(0, 0, 0, 0.3);
+}
+
+/* אנימציות */
+@keyframes noteAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) rotate(-5deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.sticky-note {
+    animation: noteAppear 0.3s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sticky-note {
+        min-width: 120px;
+        min-height: 80px;
+        max-width: 300px;
+        max-height: 300px;
+        padding: 6px;
+    }
+    
+    .note-controls {
+        opacity: 1; /* תמיד נראה במובייל */
+    }
+    
+    .color-btn,
+    .delete-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+    }
+    
+    .note-title {
+        font-size: 13px;
+    }
+    
+    .note-content {
+        font-size: 11px;
+    }
+    
+    .color-picker {
+        grid-template-columns: repeat(3, 1fr);
+        top: 40px;
+    }
+    
+    .resize-handle {
+        width: 20px;
+        height: 20px;
+        opacity: 1; /* תמיד נראה במובייל */
+    }
+}

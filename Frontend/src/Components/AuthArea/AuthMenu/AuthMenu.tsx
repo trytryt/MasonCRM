@@ -4,7 +4,7 @@ import UserModel from "../../../Models/UserModel";
 import { authStore } from "../../../Redux/AuthState";
 import { Button, Typography } from "@mui/material";
 import { FaSignOutAlt } from "react-icons/fa";
-
+import appConfig from "../../../Utils/Config";
 
 function AuthMenu(): JSX.Element {
     const [user, setUser] = useState<UserModel>();
@@ -21,12 +21,14 @@ function AuthMenu(): JSX.Element {
 
     return (
         <div className="AuthMenu">
-            {/*{!user && (*/}
-            {/*    <>*/}
-            {/*        <span>שלום אורח |</span>*/}
-            {/*        <NavLink to="/register">הרשמה</NavLink>*/}
-            {/*    </>*/}
-            {/*)}*/}
+            {!user && (
+                <>
+                    <span>שלום אורח  |</span>
+                    <NavLink to={appConfig.routes.register}>הרשמה</NavLink>
+                    <span>|</span>
+                    <NavLink to={appConfig.routes.login}>התחברות</NavLink>
+                </>
+            )}
             {user && (
                 <>
                      <Typography
@@ -39,21 +41,15 @@ function AuthMenu(): JSX.Element {
           >
              שלום {user.userName}
           </Typography>
-                    {/* {!user && (*/}
-                    {/*<NavLink to="/login"><Button variant="outlined" size="small">*/}
-                    {/*התחברות*/}
-                    {/*</Button></NavLink>*/}
-                    {/*     */}
-                    {/* )}*/}
-                     {user && (
-                    <NavLink to="/logout"><Button variant="outlined" size="small">
-                        <FaSignOutAlt className="mr-2" /> יציאה
-                    </Button></NavLink>
-                     )}
+                     
+                    <NavLink to={appConfig.routes.logout}>
+                        <Button variant="outlined" size="small">
+                            <FaSignOutAlt className="mr-2" /> יציאה
+                        </Button>
+                    </NavLink>
                 </>
             )}
         </div>
     );
 }
-
 export default AuthMenu;

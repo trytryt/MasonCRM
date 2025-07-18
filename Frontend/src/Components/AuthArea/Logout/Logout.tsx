@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import AuthService from "../../../Services/AuthService";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import React from "react";
+import appConfig from "../../../Utils/Config";
 
 function Logout(): JSX.Element {
     const navigate = useNavigate();
@@ -12,7 +14,7 @@ function Logout(): JSX.Element {
 
         toast.info("ביי ביי!");
 
-        setTimeout(() => navigate("/login"), 1000);
+        setTimeout(() => navigate(appConfig.routes.login), 1000);
     }, [navigate]);
 
     return (
@@ -31,5 +33,4 @@ function Logout(): JSX.Element {
         </>
     );
 }
-
 export default Logout;

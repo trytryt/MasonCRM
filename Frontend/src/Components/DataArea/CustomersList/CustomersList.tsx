@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {FaCheckCircle, FaEdit, FaTimesCircle, FaTrash} from "react-icons/fa";
 import { BasicLineChart } from "../BasicLineChart/BasicLineChart"
+import appConfig from "../../../Utils/Config";
 
 
 export function CustomersList(): JSX.Element {
@@ -65,15 +66,10 @@ export function CustomersList(): JSX.Element {
 const navigate = useNavigate();
 
 const goToAddCustomerPage = (customerId?: number | undefined) => {
-    const userId = authStore.getState().user?.userId;
-    if (userId) {
-        if(customerId){
-            navigate(`/customer/${userId}/edit/${customerId}`)
-        } else {
-            navigate(`/add-customer/${userId}`);
-        }
+    if(customerId){
+        navigate(appConfig.routes.customerEdit(customerId))
     } else {
-        toast.error("אין לך הרשאות לפעולה זו");
+        navigate(appConfig.routes.customerNew);
     }
 };
 
@@ -136,7 +132,14 @@ const goToAddCustomerPage = (customerId?: number | undefined) => {
         
         <div className="CustomersList">
             {confirm &&  <div className="confirmation">
-                <form onSubmit={(e) => trashCustomer(e, customerForDelete)}>
+                <form onSubmit={(e) => {
+    if (customerForDelete) {
+        trashCustomer(e, customerForDelete);
+    } else {
+        // אולי להציג הודעת שגיאה או לטפל במקרה זה
+        console.error("אין לקוח נבחר למחיקה");
+    }
+}}>
                     <p>האם אתה בטוח שברצונך למחוק את  {customerForDelete?.name}?</p>
                     <div className="wrap-icons">
                         <button className="cancel-btn" onClick={() => setConfirm(false)}>ביטול</button>
@@ -156,7 +159,8 @@ const goToAddCustomerPage = (customerId?: number | undefined) => {
                     <button type="submit">חפש</button>
                 </form>
                 <div>
-                    <span className={"graf-link"} onClick={() => navigate('/Balance')}>לתצוגת יתרות</span>
+                  
+
                     <button onClick={() => goToAddCustomerPage()}>לקוח חדש +</button>
                 </div>
             </div>
@@ -194,13 +198,20 @@ const goToAddCustomerPage = (customerId?: number | undefined) => {
                                         <FaTrash className="mr-2"></FaTrash>
                                     </button>
                                     <button className={"button-icon"}
-                                            onClick={() => goToAddCustomerPage(customer.customerId)}>
+                                         onClick={() => {
+                                            if (customer.customerId !== null) {
+                                                goToAddCustomerPage(customer.customerId);
+                                            } else {
+                                                // אולי להציג הודעת שגיאה או לטפל במקרה זה
+                                                console.error("מזהה לקוח חסר");
+                                            }
+                                        }}>
                                         <FaEdit className="mr-2"/>
                                     </button>
                                 </div>
-                                <Link to={`/customer/${customer.customerId}`} className="more-button">
-                                    <button>קרא עוד</button>
-                                </Link>
+<Link to={appConfig.routes.customerView(customer.customerId!)} className="more-button">
+    <button>קרא עוד</button>
+</Link>
                             </div>
 
                         </div>

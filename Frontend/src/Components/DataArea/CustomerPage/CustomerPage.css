@@ -1,80 +1,7 @@
-/*.customer-card {*/
-/*    display: block;*/
-/*    padding: 1rem;*/
-/*    margin: 1rem 0;*/
-/*    background-color: #f5f5f5;*/
-/*    border-radius: 5px;*/
-/*    text-decoration: none;*/
-/*    color: inherit;*/
-/*    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);*/
-/*    transition: transform 0.2s;*/
-/*}*/
-
-/*.customer-card:hover {*/
-/*    transform: scale(1.02);*/
-/*    background-color: #e0e0e0;*/
-/*}*/
-
-/*.customer-details {*/
-/*    margin: 2rem;*/
-/*    padding: 1rem;*/
-/*    border: 1px solid #ddd;*/
-/*    border-radius: 5px;*/
-/*    background-color: #f9f9f9;*/
-/*}*/
-
-/*.CustomerPage {*/
-/*    font-family: Arial, sans-serif;*/
-/*    margin: 20px;*/
-/*}*/
-
-/*.customer-details {*/
-/*    background-color: #f9f9f9;*/
-/*    padding: 10px;*/
-/*    border-radius: 5px;*/
-/*    margin-bottom: 20px;*/
-/*    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);*/
-/*}*/
-
-/*h3 {*/
-/*    margin-top: 15px;*/
-/*    color: #333;*/
-/*}*/
-
-/*ul {*/
-/*    list-style-type: none;*/
-/*    padding: 0;*/
-/*}*/
-
-/*li {*/
-/*    background-color: #f1f1f1;*/
-/*    margin: 5px 0;*/
-/*    padding: 8px;*/
-/*    border-radius: 3px;*/
-/*}*/
-
-/*.add-button {*/
-/*    margin-left: 10px;*/
-/*    padding: 5px 10px;*/
-/*    background-color: #4caf50;*/
-/*    color: white;*/
-/*    border: none;*/
-/*    border-radius: 3px;*/
-/*    cursor: pointer;*/
-/*    transition: background-color 0.3s;*/
-/*}*/
-
-/*.add-button:hover {*/
-/*    background-color: #45a049;*/
-/*}*/
-
 /* General styling for the page */
 .CustomerPage {
     font-family: Arial, sans-serif;
-    /*max-width: 900px;*/
-    /*margin: 0 auto;*/
     padding: 20px;
-    /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
     direction: rtl;
     text-align: right;
 }
@@ -124,21 +51,6 @@
     margin-top:20px;
 }
 
-/* List styles */
-/*.customer-details ul {*/
-/*    list-style-type: none;*/
-/*    padding: 0;*/
-/*    margin: 0;*/
-/*}*/
-
-/*.customer-details li {*/
-/*    margin: 8px 0;*/
-/*    padding: 10px;*/
-/*    background-color: #f7f7f7;*/
-/*    border: 1px solid #ddd;*/
-/*    border-radius: 5px;*/
-/*}*/
-
 /* Form inputs */
 .customer-details input {
     display: block;
@@ -184,21 +96,6 @@
 .button-wrap{
     width: 100%;
     text-align: left;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    .payments-expenses {
-        flex-direction: column;
-    }
-
-    .customer-details input {
-        /*width: 100%;*/
-    }
-
-    .customer-details button {
-        width: 100%;
-    }
 }
 
 /* List styles with scrollable functionality */
@@ -254,4 +151,118 @@ table {
 table td, table th{
     width: 31%;
     padding: 1% 2%;
+}
+
+/* כפתור מחיקת מסמך */
+.delete-document-btn {
+    background-color: #f44336 !important;
+    color: white !important;
+    border: none !important;
+    padding: 5px 10px !important;
+    border-radius: 3px !important;
+    cursor: pointer !important;
+    font-size: 12px !important;
+    transition: background-color 0.3s ease, opacity 0.3s ease !important;
+    min-width: 60px;
+    text-align: center;
+}
+
+.delete-document-btn:hover:not(:disabled) {
+    background-color: #d32f2f !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(244, 67, 54, 0.3);
+}
+
+.delete-document-btn:disabled {
+    background-color: #ccc !important;
+    cursor: not-allowed !important;
+    opacity: 0.6;
+}
+
+.delete-document-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(244, 67, 54, 0.3);
+}
+
+/* התאמות לעמודת הפעולות */
+table th:last-child,
+table td:last-child {
+    width: 15% !important;
+    text-align: center !important;
+    padding: 8px 4px !important;
+}
+
+/* שיפור עיצוב הטבלה */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+    background-color: white;
+}
+
+table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px 8px;
+    border-bottom: 2px solid #274F60FF;
+}
+
+table td {
+    padding: 10px 8px;
+    vertical-align: middle;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* קישורים למסמכים */
+table a {
+    color: #007bff;
+    text-decoration: none;
+    display: inline-block;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+table a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .payments-expenses {
+        flex-direction: column;
+    }
+
+    .customer-details input {
+        width: calc(100% - 20px);
+    }
+
+    .customer-details button {
+        width: 100%;
+    }
+    
+    table td, table th {
+        padding: 8px 4px;
+        font-size: 12px;
+    }
+    
+    .delete-document-btn {
+        font-size: 10px !important;
+        padding: 4px 8px !important;
+        min-width: 50px;
+    }
+    
+    table a {
+        max-width: 120px;
+    }
 }

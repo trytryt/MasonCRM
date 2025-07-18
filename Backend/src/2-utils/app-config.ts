@@ -1,9 +1,9 @@
 class AppConfig {
 
     // Database
-    public host = "db" // Computer name/address of our database
+    public host = "localhost" // Computer name/address of our database
     public user = "root" // Database user
-    public password = "rootpassword" // Database password
+    public password = "" // Database password
     public database = "customersdb" // Database name  check v/V
 
     // Server port

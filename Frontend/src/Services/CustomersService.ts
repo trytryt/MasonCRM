@@ -100,6 +100,27 @@ class CustomersService {
             throw error;
         }
     }
+   public async deleteDocument(customerId: number, documentId: number): Promise<{ success: boolean, message: string }> {
+        const url = `http://localhost:3002/api/customer/${customerId}/document/${documentId}`;
+        
+        try {
+            const response = await axios.delete<{ success: boolean, message: string, deletedDocumentId: number }>(url);
+            console.log("Document deleted successfully.");
+            return {
+                success: response.data.success,
+                message: response.data.message
+            };
+        } catch (error: any) {
+            console.error("Error deleting document:", error);
+            
+            // טיפול בשגיאות מהשרת
+            if (error.response?.data?.message) {
+                throw new Error(error.response.data.message);
+            }
+            
+            throw new Error('שגיאה במחיקת המסמך');
+        }
+    }
     
 }
 const customersService = new CustomersService()

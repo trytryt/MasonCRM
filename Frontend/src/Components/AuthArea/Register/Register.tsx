@@ -1,10 +1,10 @@
-
 import { Button, TextField, Box, Typography, Container } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import authService from '../../../Services/AuthService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
+import appConfig from '../../../Utils/Config';
 
 function Register(): JSX.Element {
     const { register, handleSubmit } = useForm();
@@ -14,7 +14,7 @@ function Register(): JSX.Element {
         try {
             await authService.register(user);
             toast.success('Welcome!');
-            setTimeout(() => navigate('/list'), 2000);
+            setTimeout(() => navigate(appConfig.routes.dashboard), 2000);
         } catch (error: any) {
             toast.error(error.message);
         }
@@ -22,51 +22,41 @@ function Register(): JSX.Element {
 
     return (
         <Container maxWidth="xs">
-            <Box sx={{ mt: 4, p: 3, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
-                <Typography variant="h5" gutterBottom>
+            <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Typography component="h1" variant="h5">
                     Register
                 </Typography>
-                <form onSubmit={handleSubmit(send)}>
+                <Box component="form" onSubmit={handleSubmit(send)} sx={{ mt: 1 }}>
                     <TextField
+                        margin="normal"
+                        required
                         fullWidth
-                        label="Username"
+                        label="userName"
+                        autoComplete="userName"
+                        autoFocus
                         {...register('userName')}
-                        variant="outlined"
-                        margin="normal"
-                        size="small"
-                        required
                     />
-                   
                     <TextField
-                        fullWidth
-                        type="password"
-                        label="Password"
-                        {...register('password', { minLength: 4 })}
-                        variant="outlined"
                         margin="normal"
-                        size="small"
                         required
+                        fullWidth
+                        label="Password"
+                        type="password"
+                        autoComplete="current-password"
+                        {...register('password')}
                     />
-                    <Button type="submit" variant="contained" color="primary" sx={{ mt: 2, mb: 1 }}>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
                         Register
                     </Button>
-                </form>
-                <Button  variant="outlined" color="primary" sx={{ mt: 2, mb: 1 }}>
-                        already a member?
-                    </Button>
+                    <NavLink to="/login">Already have an account? Sign in</NavLink>
+                </Box>
             </Box>
-
-            <ToastContainer
-                position="top-left"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
+            <ToastContainer />
         </Container>
     );
 }

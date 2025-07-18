@@ -1,3 +1,4 @@
+import React from "react";
 import AuthMenu from "../../AuthArea/AuthMenu/AuthMenu";
 import Routing from "../Routing/Routing";
 import "./Header.css";

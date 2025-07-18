@@ -1,33 +1,18 @@
-// הגדרת enum עבור סוגי החומר
-enum ChomerimCategory {
-    ChomerShachor = "חומר שחור",
-    ChomerLavan = "חומר לבן",
-    KablanMishneh = "קבלן משנה",
-    Sapak = "ספק"
-}
-
 class ExpenseModel {
     chomarimId: number;
     customerId: number;
     expenseTypeId: number;
-    chomarimCategory: ChomerimCategory; // סוג הוצאה מתוך ה-ENUM
+    chomarimCategory: string; // שינוי מ-enum לstring כדי לאפשר טקסט חופשי
     amount: number;
     updateDate: string;
 
-    constructor(
-        chomarimId: number, 
-        customerId: number, 
-        expenseTypeId: number, 
-        chomarimCategory: ChomerimCategory, 
-        amount: number,
-        updateDate: string,
-    ) {
-        this.chomarimId = chomarimId;
-        this.customerId = customerId;
-        this.expenseTypeId = expenseTypeId;
-        this.chomarimCategory = chomarimCategory;
-        this.amount = amount;
-        this.updateDate = updateDate;
+    constructor(expense: Partial<ExpenseModel>) {
+        this.chomarimId = expense.chomarimId || 0;
+        this.customerId = expense.customerId || 0;
+        this.expenseTypeId = expense.expenseTypeId || 1; // ערך ברירת מחדל
+        this.chomarimCategory = expense.chomarimCategory || '';
+        this.amount = expense.amount || 0;
+        this.updateDate = expense.updateDate || new Date().toISOString().split('T')[0];
     }
 }
 
