@@ -23,9 +23,8 @@ function AuthMenu(): JSX.Element {
         <div className="AuthMenu">
             {!user && (
                 <>
-                    <span>שלום אורח  |</span>
+                    <span>שלום אורח  </span>
                     <NavLink to={appConfig.routes.register}>הרשמה</NavLink>
-                    <span>|</span>
                     <NavLink to={appConfig.routes.login}>התחברות</NavLink>
                 </>
             )}
